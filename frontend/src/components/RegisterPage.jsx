@@ -4,14 +4,12 @@ import axios from 'axios';
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
-    first_name: '',
-    middle_name: '',
-    last_name: '',
+    fname: '',
+    lname: '',
     email: '',
     username: '',
     password: '',
-    contact_no: '',
-    role: 'Farmer'
+    mobileno: ''
   });
 
   const handleChange = (e) => {
@@ -25,7 +23,7 @@ const RegisterPage = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8080/api/users/register', {
+      const response = await axios.post('http://localhost:8080/user/insert', {
         ...formData,
         status: 'Pending'
       });
@@ -48,19 +46,19 @@ const RegisterPage = () => {
               <Form onSubmit={handleSubmit}>
                 
                 <Row className="mb-3">
-                  <Form.Group as={Col} controlId="first_name">
-                    <Form.Label>First Name</Form.Label>
+                  <Form.Group as={Col} controlId="fname">
+                    <Form.Label>First name</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="First name"
-                      name="first_name"
-                      value={formData.first_name}
+                      placeholder="fname"
+                      name="fname"
+                      value={formData.fname}
                       onChange={handleChange}
                       required
                     />
                   </Form.Group>
 
-                  <Form.Group as={Col} controlId="middle_name">
+                  {/* <Form.Group as={Col} controlId="middle_name">
                     <Form.Label>Middle Name</Form.Label>
                     <Form.Control
                       type="text"
@@ -69,15 +67,15 @@ const RegisterPage = () => {
                       value={formData.middle_name}
                       onChange={handleChange}
                     />
-                  </Form.Group>
+                  </Form.Group> */}
 
-                  <Form.Group as={Col} controlId="last_name">
+                  <Form.Group as={Col} controlId="lname">
                     <Form.Label>Last Name</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="Last name"
-                      name="last_name"
-                      value={formData.last_name}
+                      placeholder="lname"
+                      name="lname"
+                      value={formData.lname}
                       onChange={handleChange}
                       required
                     />
