@@ -1,47 +1,83 @@
 import React, { useState } from 'react';
-import { Container, Form, Button } from 'react-bootstrap';
+import axios from 'axios';
+import { Container, Form, Button, Alert, Card } from 'react-bootstrap';
 
-const LoginPage = () => {
-  const [formData, setFormData] = useState({ email: '', password: '', role: 'farmer' });
+const Login = () => {
+  const [role, setRole] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
-  const handleChange = (e) => {
-    setFormData({...formData, [e.target.name]: e.target.value});
-  };
-
-  const handleSubmit = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log('Login:', formData);
-    // TODO: send data to backend and redirect based on role
+
+    if (!role) {
+      setError('Please select a role');
+      return;
+    }
+
+    try {
+      const res = await axios.post(`http://localhost:8080/api/${role}/login`, {
+        username,
+        password
+      });
+
+      const token = res.data.token;
+      localStorage.setItem('token', token);
+
+      // Redirect to respective dashboard
+      window.location.href = `/${role}/dashboard`;
+    } catch (err) {
+      setError('Invalid username or password');
+    }
   };
 
   return (
-    <Container className="mt-4" style={{ maxWidth: '400px' }}>
-      <h3 className="mb-4 text-center">Login</h3>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3">
-          <Form.Label>Email</Form.Label>
-          <Form.Control type="email" name="email" onChange={handleChange} required />
-        </Form.Group>
+    <Container className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+      <Card style={{ width: '400px', padding: '20px' }}>
+        <h3 className="text-center mb-4">User Login</h3>
+        {error && <Alert variant="danger">{error}</Alert>}
+        <Form onSubmit={handleLogin}>
+          <Form.Group className="mb-3" controlId="role">
+            <Form.Label>Select Role</Form.Label>
+            <Form.Select value={role} onChange={(e) => setRole(e.target.value)} required>
+              <option value="">-- Select --</option>
+              <option value="farmer">Farmer</option>
+              <option value="vendor">Vendor</option>
+              <option value="government">Government</option>
+              <option value="admin">Admin</option>
+            </Form.Select>
+          </Form.Group>
 
-        <Form.Group className="mb-3">
-          <Form.Label>Password</Form.Label>
-          <Form.Control type="password" name="password" onChange={handleChange} required />
-        </Form.Group>
+          <Form.Group className="mb-3" controlId="username">
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </Form.Group>
 
-        <Form.Group className="mb-3">
-          <Form.Label>Select Role</Form.Label>
-          <Form.Select name="role" onChange={handleChange}>
-            <option value="farmer">Farmer</option>
-            <option value="vendor">Vendor</option>
-            <option value="government">Government</option>
-            <option value="admin">Admin</option>
-          </Form.Select>
-        </Form.Group>
+          <Form.Group className="mb-3" controlId="password">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </Form.Group>
 
-        <Button type="submit" variant="primary" className="w-100">Login</Button>
-      </Form>
+          <Button variant="primary" type="submit" className="w-100">
+            Login
+          </Button>
+        </Form>
+      </Card>
     </Container>
   );
 };
 
-export default LoginPage;
+export default Login;
