@@ -20,6 +20,7 @@ const LoginPage = () => {
       const response = await axios.post('http://localhost:8080/user/find', formData); // Update with your backend API
       console.log('Login Successful:', response.data);
       setSuccess('Login successful!');
+      setFormData({ username: '', password: '' });
     } catch (err) {
       console.error('Login failed:', err);
       setError('Login failed. Please check your username and password.');

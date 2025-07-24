@@ -13,16 +13,12 @@ const RegisterPage = () => {
     role: 'Farmer',
     landsize: '',
     income: '',
-    locid: '',
     locname: '',
-    companyname: '',
-    liscenseno: '',
-    designation: '',
-    empno: '',
     deptname: '',
+    designation: '',
+    empno: ''
   });
 
-  const [locations, setLocations] = useState([]);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -34,90 +30,74 @@ const RegisterPage = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setFormData((prevData) => ({
       ...prevData,
       [name]: value
     }));
   };
 
-  useEffect(() => {
-    axios.get('http://localhost:8080/location/all')
-      .then(response => setLocations(response.data))
-      .catch(error => console.error('Error fetching locations:', error));
-  }, []);
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  const roleId = roleMap[formData.role];
 
-  useEffect(() => {
-    setFormData((prev) => ({
-      ...prev,
-      companyname: '',
-      liscenseno: '',
+  try {
+    // Step 1: Register user to user-service
+    const userPayload = {
+      fname: formData.fname,
+      lname: formData.lname,
+      email: formData.email,
+      username: formData.username,
+      password: formData.password,
+      mobileno: formData.mobileno,
+      rid: roleId,
+      status: 1
+    };
+
+    const userResponse = await axios.post('http://localhost:8080/user/register', userPayload);
+    const registeredUser = userResponse.data;
+
+    // Step 2: Role-specific registration
+    if (formData.role === 'Farmer') {
+      const farmerPayload = {
+        uid: registeredUser.uid,
+        landsize: formData.landsize,
+        income: formData.income,
+        locname: formData.locname   // ✅ only locname needed
+      };
+
+      await axios.post('http://localhost:8081/farmer/register', farmerPayload);
+    }
+
+    // TODO: Add .NET microservice logic for Vendor and Government
+
+    setSuccessMessage('Registered successfully!');
+    setErrorMessage('');
+    console.log('User registered:', registeredUser);
+    setSuccessMessage('Registered successfully!');
+    setErrorMessage('');
+    setFormData({
+      fname: '',
+      lname: '',
+      email: '',
+      username: '',
+      password: '',
+      mobileno: '',
+      role: 'Farmer',
       landsize: '',
       income: '',
-      locid: '',
       locname: '',
       deptname: '',
       designation: '',
       empno: ''
-    }));
-  }, [formData.role]);
+    });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const roleId = roleMap[formData.role];
+  } catch (error) {
+    console.error('Registration failed:', error);
+    setErrorMessage('Registration failed. Please check backend or network.');
+    setSuccessMessage('');
+  }
+};
 
-    try {
-      let locid = null;
-      if (formData.role === 'Farmer' && formData.locname.trim() !== '') {
-        const locResponse = await axios.post('http://localhost:8080/location/insert', {
-          locname: formData.locname
-        });
-        locid = locResponse.data.locid;
-      }
-
-      const basePayload = {
-        fname: formData.fname,
-        lname: formData.lname,
-        email: formData.email,
-        username: formData.username,
-        password: formData.password,
-        mobileno: formData.mobileno,
-        rid: roleId,
-        status: 0
-      };
-
-      let extraPayload = {};
-      if (formData.role === 'Vendor') {
-        extraPayload = {
-          companyname: formData.companyname,
-          licenseno: formData.liscenseno,
-        };
-      } else if (formData.role === 'Farmer') {
-        extraPayload = {
-          landsize: formData.landsize,
-          income: formData.income,
-          locid: locid
-        };
-      } else if (formData.role === 'Government') {
-        extraPayload = {
-          deptname: formData.deptname,
-          empno: formData.empno,
-          designation: formData.designation,
-        };
-      }
-
-      const payload = { ...basePayload, ...extraPayload };
-
-      const response = await axios.post('http://localhost:8080/user/insert', payload);
-      setSuccessMessage('Registered successfully!');
-      setErrorMessage('');
-      console.log('User registered:', response.data);
-    } catch (error) {
-      console.error('Registration failed:', error);
-      setErrorMessage('Registration failed. Please check backend or network.');
-      setSuccessMessage('');
-    }
-  };
 
   return (
     <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
@@ -158,12 +138,12 @@ const RegisterPage = () => {
                 </Form.Group>
 
                 <Form.Group controlId="mobileno" className="mb-3">
-                  <Form.Label>Contact Number</Form.Label>
+                  <Form.Label>Mobile No</Form.Label>
                   <Form.Control type="text" name="mobileno" value={formData.mobileno} onChange={handleChange} required />
                 </Form.Group>
 
                 <Form.Group controlId="role" className="mb-4">
-                  <Form.Label>Select Role</Form.Label>
+                  <Form.Label>Role</Form.Label>
                   <Form.Select name="role" value={formData.role} onChange={handleChange}>
                     <option value="Farmer">Farmer</option>
                     <option value="Vendor">Vendor</option>
@@ -171,23 +151,10 @@ const RegisterPage = () => {
                   </Form.Select>
                 </Form.Group>
 
-                {formData.role === 'Vendor' && (
-                  <>
-                    <Form.Group controlId="company_name" className="mb-3">
-                      <Form.Label>Company Name</Form.Label>
-                      <Form.Control type="text" name="companyname" value={formData.companyname} onChange={handleChange} required />
-                    </Form.Group>
-                    <Form.Group controlId="license_no" className="mb-3">
-                      <Form.Label>License No</Form.Label>
-                      <Form.Control type="text" name="liscenseno" value={formData.liscenseno} onChange={handleChange} required />
-                    </Form.Group>
-                  </>
-                )}
-
                 {formData.role === 'Farmer' && (
                   <>
                     <Form.Group controlId="landsize" className="mb-3">
-                      <Form.Label>Land Area (in acres)</Form.Label>
+                      <Form.Label>Land Size (in acres)</Form.Label>
                       <Form.Control type="number" name="landsize" value={formData.landsize} onChange={handleChange} required />
                     </Form.Group>
                     <Form.Group controlId="income" className="mb-3">
@@ -195,35 +162,13 @@ const RegisterPage = () => {
                       <Form.Control type="number" name="income" value={formData.income} onChange={handleChange} required />
                     </Form.Group>
                     <Form.Group controlId="locname" className="mb-3">
-                      <Form.Label>Location</Form.Label>
-                      <Form.Control
-                        type="text"
-                        name="locname"
-                        placeholder="Enter location"
-                        value={formData.locname}
-                        onChange={handleChange}
-                        required
-                      />
+                      <Form.Label>Location Name</Form.Label>
+                      <Form.Control type="text" name="locname" value={formData.locname} onChange={handleChange} required />
                     </Form.Group>
                   </>
                 )}
 
-                {formData.role === 'Government' && (
-                  <>
-                    <Form.Group controlId="deptname" className="mb-3">
-                      <Form.Label>Department Name</Form.Label>
-                      <Form.Control type="text" name="deptname" value={formData.deptname} onChange={handleChange} required />
-                    </Form.Group>
-                    <Form.Group controlId="designation" className="mb-3">
-                      <Form.Label>Designation</Form.Label>
-                      <Form.Control type="text" name="designation" value={formData.designation} onChange={handleChange} required />
-                    </Form.Group>
-                    <Form.Group controlId="empno" className="mb-3">
-                      <Form.Label>Employee No</Form.Label>
-                      <Form.Control type="text" name="empno" value={formData.empno} onChange={handleChange} required />
-                    </Form.Group>
-                  </>
-                )}
+                {/* Vendor & Government logic can be added later */}
 
                 <div className="d-grid mt-4">
                   <Button variant="success" type="submit">Register</Button>
