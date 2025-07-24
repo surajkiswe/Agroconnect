@@ -4,13 +4,12 @@ import axios from 'axios';
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
-    first_name: '',
-    middle_name: '',
-    last_name: '',
+    fname: '',
+    lname: '',
     email: '',
     username: '',
     password: '',
-    contact_no: '',
+    mobileno: '',
     role: 'Farmer'
   });
 
@@ -25,9 +24,9 @@ const RegisterPage = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8080/api/users/register', {
+      const response = await axios.post('http://localhost:8080/user/insert', {
         ...formData,
-        status: 'Pending'
+        status: 'Pending' // assuming your backend expects this
       });
 
       console.log('User registered:', response.data);
@@ -46,38 +45,24 @@ const RegisterPage = () => {
             <Card.Body>
               <h3 className="mb-4 text-center">Register to AgroConnect</h3>
               <Form onSubmit={handleSubmit}>
-                
                 <Row className="mb-3">
-                  <Form.Group as={Col} controlId="first_name">
+                  <Form.Group as={Col} controlId="fname">
                     <Form.Label>First Name</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="First name"
-                      name="first_name"
-                      value={formData.first_name}
+                      name="fname"
+                      value={formData.fname}
                       onChange={handleChange}
                       required
                     />
                   </Form.Group>
 
-                  <Form.Group as={Col} controlId="middle_name">
-                    <Form.Label>Middle Name</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Middle name"
-                      name="middle_name"
-                      value={formData.middle_name}
-                      onChange={handleChange}
-                    />
-                  </Form.Group>
-
-                  <Form.Group as={Col} controlId="last_name">
+                  <Form.Group as={Col} controlId="lname">
                     <Form.Label>Last Name</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="Last name"
-                      name="last_name"
-                      value={formData.last_name}
+                      name="lname"
+                      value={formData.lname}
                       onChange={handleChange}
                       required
                     />
@@ -85,10 +70,9 @@ const RegisterPage = () => {
                 </Row>
 
                 <Form.Group controlId="email" className="mb-3">
-                  <Form.Label>Email address</Form.Label>
+                  <Form.Label>Email</Form.Label>
                   <Form.Control
                     type="email"
-                    placeholder="Enter email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
@@ -100,7 +84,6 @@ const RegisterPage = () => {
                   <Form.Label>Username</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="Enter username"
                     name="username"
                     value={formData.username}
                     onChange={handleChange}
@@ -112,7 +95,6 @@ const RegisterPage = () => {
                   <Form.Label>Password</Form.Label>
                   <Form.Control
                     type="password"
-                    placeholder="Enter password"
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
@@ -120,13 +102,12 @@ const RegisterPage = () => {
                   />
                 </Form.Group>
 
-                <Form.Group controlId="contact_no" className="mb-3">
-                  <Form.Label>Contact Number</Form.Label>
+                <Form.Group controlId="mobileno" className="mb-3">
+                  <Form.Label>Mobile Number</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="Enter mobile number"
-                    name="contact_no"
-                    value={formData.contact_no}
+                    name="mobileno"
+                    value={formData.mobileno}
                     onChange={handleChange}
                     required
                   />

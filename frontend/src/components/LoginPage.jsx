@@ -1,83 +1,79 @@
 import React, { useState } from 'react';
+import { Container, Form, Button, Alert } from 'react-bootstrap';
 import axios from 'axios';
-import { Container, Form, Button, Alert, Card } from 'react-bootstrap';
 
-const Login = () => {
-  const [role, setRole] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+const LoginPage = () => {
+  const [formData, setFormData] = useState({ username: '', password: '', role: 'farmer' });
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
-  const handleLogin = async (e) => {
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!role) {
-      setError('Please select a role');
-      return;
-    }
+    setError('');
+    setSuccess('');
 
     try {
-      const res = await axios.post(`http://localhost:8080/api/${role}/login`, {
-        username,
-        password
-      });
+      const response = await axios.post('http://localhost:8080/user/find', formData); // Update with your backend API
+      console.log('Login Successful:', response.data);
+      setSuccess('Login successful!');
 
-      const token = res.data.token;
-      localStorage.setItem('token', token);
-
-      // Redirect to respective dashboard
-      window.location.href = `/${role}/dashboard`;
+      // Redirect based on role
+      // switch (formData.role) {
+      //   case 'admin':
+      //     window.location.href = '/admin/dashboard';
+      //     break;
+      //   case 'farmer':
+      //     window.location.href = '/farmer/home';
+      //     break;
+      //   case 'vendor':
+      //     window.location.href = '/vendor/home';
+      //     break;
+      //   case 'government':
+      //     window.location.href = '/gov/home';
+      //     break;
+      //   default:
+      //     break;
+      // }
     } catch (err) {
-      setError('Invalid username or password');
+      console.error('Login failed:', err);
+      setError('Login failed. Please check your username and password.');
     }
   };
 
   return (
-    <Container className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
-      <Card style={{ width: '400px', padding: '20px' }}>
-        <h3 className="text-center mb-4">User Login</h3>
-        {error && <Alert variant="danger">{error}</Alert>}
-        <Form onSubmit={handleLogin}>
-          <Form.Group className="mb-3" controlId="role">
-            <Form.Label>Select Role</Form.Label>
-            <Form.Select value={role} onChange={(e) => setRole(e.target.value)} required>
-              <option value="">-- Select --</option>
-              <option value="farmer">Farmer</option>
-              <option value="vendor">Vendor</option>
-              <option value="government">Government</option>
-              <option value="admin">Admin</option>
-            </Form.Select>
-          </Form.Group>
+    <Container className="mt-4" style={{ maxWidth: '400px' }}>
+      <h3 className="mb-4 text-center">Login</h3>
+      {error && <Alert variant="danger">{error}</Alert>}
+      {success && <Alert variant="success">{success}</Alert>}
+      <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3">
+          <Form.Label>Username</Form.Label>
+          <Form.Control type="text" name="username" onChange={handleChange} required />
+        </Form.Group>
 
-          <Form.Group className="mb-3" controlId="username">
-            <Form.Label>Username</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Password</Form.Label>
+          <Form.Control type="password" name="password" onChange={handleChange} required />
+        </Form.Group>
 
-          <Form.Group className="mb-3" controlId="password">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Enter password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Select Role</Form.Label>
+          <Form.Select name="role" onChange={handleChange} value={formData.role}>
+            <option value="farmer">Farmer</option>
+            <option value="vendor">Vendor</option>
+            <option value="government">Government</option>
+            <option value="admin">Admin</option>
+          </Form.Select>
+        </Form.Group>
 
-          <Button variant="primary" type="submit" className="w-100">
-            Login
-          </Button>
-        </Form>
-      </Card>
+        <Button type="submit" variant="primary" className="w-100">Login</Button>
+      </Form>
     </Container>
   );
 };
 
-export default Login;
+export default LoginPage;
