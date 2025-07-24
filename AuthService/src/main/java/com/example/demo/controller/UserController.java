@@ -29,11 +29,11 @@ public class UserController {
 		return us.getAll();
 	}
 	
-	@GetMapping("/find")
-	public UserEntity getUserWithUsernameAndPassword(@RequestBody UserEntity u)
-	{
-		return us.getUserWithUsernameAndPassword(u.getUsername(), u.getPassword());
-	}
+//	@GetMapping("/find")
+//	public UserEntity getUserWithUsernameAndPassword(@RequestBody UserEntity u)
+//	{
+//		return us.getUserWithUsernameAndPassword(u.getUsername(), u.getPassword());
+//	}
 	
 	@PostMapping("/insert")
 	public UserEntity add(@RequestBody UserEntity u)

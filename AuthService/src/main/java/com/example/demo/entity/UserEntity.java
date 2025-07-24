@@ -35,6 +35,24 @@ public class UserEntity {
 	
 	String lname;
 	
+	boolean status;
+	
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+	public RoleEntity getRid() {
+		return rid;
+	}
+
+	public void setRid(RoleEntity rid) {
+		this.rid = rid;
+	}
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "rid")
 	@JsonIgnoreProperties("user")

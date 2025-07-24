@@ -27,11 +27,11 @@ public class UserServices {
 		return ur.findAll();
 	}
 	
-	//authentication
-	public UserEntity getUserWithUsernameAndPassword(String username,String password)
-	{
-		return ur.getUserWithUsernameAndPassword(username,password);
-	}
+//	//authentication
+//	public UserEntity getUserWithUsernameAndPassword(String username,String password)
+//	{
+//		return ur.getUserWithUsername(username,password);
+//	}
 	
 	public UserEntity add(UserEntity u) {
 	    UserEntity user = new UserEntity();

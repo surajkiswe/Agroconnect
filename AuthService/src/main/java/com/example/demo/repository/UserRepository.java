@@ -8,7 +8,7 @@ import com.example.demo.entity.UserEntity;
 
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 
-	@Query("select u from UserEntity u where u.username = :username and u.password = :password")
-	public UserEntity getUserWithUsernameAndPassword(@Param("username") String username,@Param("password") String password);
+	@Query("select u from User u where username = ?1")
+	public UserEntity getUserWithUsername(String username);
 	
 }
