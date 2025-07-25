@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Form, Button, Alert } from 'react-bootstrap';
 import axios from 'axios';
+import { auth_url } from './urls'; // Adjust the import path as necessary
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({ username: '', password: '' });
@@ -17,7 +18,7 @@ const LoginPage = () => {
     setSuccess('');
 
     try {
-      const response = await axios.post('http://localhost:8080/user/find', formData); // Update with your backend API
+      const response = await axios.post(auth_url+'/find', formData); // Update with your backend API
       console.log('Login Successful:', response.data);
       setSuccess('Login successful!');
       setFormData({ username: '', password: '' });
