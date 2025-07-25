@@ -45,24 +45,18 @@ public class UserEntity {
 		this.status = status;
 	}
 
-	public RoleEntity getRid() {
-		return rid;
-	}
-
-	public void setRid(RoleEntity rid) {
-		this.rid = rid;
-	}
+	
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "rid")
 	@JsonIgnoreProperties("user")
 	RoleEntity rid;
 
-	public RoleEntity getrid() {
+	public RoleEntity getRid() {
 		return rid;
 	}
 
-	public void setrid(RoleEntity rid) {
+	public void setRid(RoleEntity rid) {
 		this.rid = rid;
 	}
 

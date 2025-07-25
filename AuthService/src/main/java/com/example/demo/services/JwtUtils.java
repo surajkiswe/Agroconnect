@@ -29,6 +29,8 @@ public class JwtUtils {
 	  private int jwtExpirationMs; 	 
 		 
 	 
+
+	 
 	public String getUserNameFromJwtToken(String token) {
 			  return Jwts.parser().setSigningKey(key()).build().parseClaimsJws(token).getBody().getSubject();
 		
