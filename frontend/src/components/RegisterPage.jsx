@@ -4,73 +4,60 @@ import axios from 'axios';
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
-    fname: '',
-    lname: '',
-    email: '',
-    username: '',
-    password: '',
-    mobileno: '',
+    fname: '', 
+    lname: '', 
+    email: '', 
+    username: '', 
+    password: '', 
+    mobileno: '', 
     role: 'Farmer',
-    landsize: '',
-    income: '',
-    locname: '',
-    liscenceno: '',
-    companyname: '',
-    deptname: '',
-    designation: '',
-    empno: ''
+    landsize: '', 
+    income: '', 
+    locname: '', 
+    liscenceno: '', 
+    companyname: '', 
+    deptname: '', 
+    designation: '', empno: ''
   });
 
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const roleMap = {
-    Farmer: 1,
-    Vendor: 2,
-    Government: 3
-  };
+  const roleMap = { Farmer: 1, Vendor: 2, Government: 3 };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const validate = () => {
     const errors = {};
+    const isOnlyLetters = (text) => /^[A-Za-z]+$/.test(text);
+    const isEmailValid = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const isPasswordValid = (pw) => /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,}$/.test(pw);
+    const isMobileValid = (mob) => /^\d{10}$/.test(mob);
 
-    if (!formData.fname.trim()) errors.fname = 'First name is required.';
-    else if (!/^[A-Za-z]+$/.test(formData.fname)) errors.fname = 'First name should contain only letters.';
-
-    if (!formData.lname.trim()) errors.lname = 'Last name is required.';
-    else if (!/^[A-Za-z]+$/.test(formData.lname)) errors.lname = 'Last name should contain only letters.';
-
-    if (!formData.email.trim()) errors.email = 'Email is required.';
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) errors.email = 'Invalid email format.';
-
-    if (!formData.username.trim()) errors.username = 'Username is required.';
-    else if (formData.username.length < 6) errors.username = 'Username must be at least 6 characters.';
-
-    if (!formData.password.trim()) errors.password = 'Password is required.';
-    else if (!/^(?=.*[0-9])(?=.*[!@#$%^&*]).{6,}$/.test(formData.password)) {
-      errors.password = 'Password must be at least 6 characters with 1 digit and 1 special character.';
-    }
-
-    if (!formData.mobileno.trim()) errors.mobileno = 'Mobile number is required.';
-    else if (!/^\d{10}$/.test(formData.mobileno)) errors.mobileno = 'Mobile number must be 10 digits.';
+    if (!formData.fname || !isOnlyLetters(formData.fname)) errors.fname = 'Valid first name is required.';
+    if (!formData.lname || !isOnlyLetters(formData.lname)) errors.lname = 'Valid last name is required.';
+    if (!formData.email || !isEmailValid(formData.email)) errors.email = 'Valid email is required.';
+    if (!formData.username || formData.username.length < 6) errors.username = 'Username must be at least 6 characters.';
+    if (!formData.password || !isPasswordValid(formData.password)) errors.password = 'Password must be 6+ characters with 1 digit & 1 special char.';
+    if (!formData.mobileno || !isMobileValid(formData.mobileno)) errors.mobileno = 'Mobile number must be 10 digits.';
 
     if (formData.role === 'Farmer') {
-      if (!formData.landsize) errors.landsize = 'Land size is required.';
-      if (!formData.income) errors.income = 'Income is required.';
+      if (!formData.landsize || formData.landsize <= 0) errors.landsize = 'Land size must be positive.';
+      if (!formData.income || formData.income <= 0) errors.income = 'Income must be positive.';
       if (!formData.locname.trim()) errors.locname = 'Location is required.';
     }
-
     if (formData.role === 'Vendor') {
       if (!formData.liscenceno.trim()) errors.liscenceno = 'License number is required.';
       if (!formData.companyname.trim()) errors.companyname = 'Company name is required.';
+    }
+    if (formData.role === 'Government') {
+      if (!formData.empno.trim()) errors.empno = 'Employee number is required.';
+      if (!formData.deptname.trim()) errors.deptname = 'Department name is required.';
+      if (!formData.designation.trim()) errors.designation = 'Designation is required.';
     }
 
     setErrors(errors);
@@ -84,14 +71,9 @@ const RegisterPage = () => {
     const roleId = roleMap[formData.role];
     try {
       const userPayload = {
-        fname: formData.fname,
-        lname: formData.lname,
-        email: formData.email,
-        username: formData.username,
-        password: formData.password,
-        mobileno: formData.mobileno,
-        rid: roleId,
-        status: 1
+        fname: formData.fname, lname: formData.lname, email: formData.email,
+        username: formData.username, password: formData.password, mobileno: formData.mobileno,
+        rid: roleId, status: 1
       };
 
       const userResponse = await axios.post('http://localhost:8080/user/register', userPayload);
@@ -99,31 +81,20 @@ const RegisterPage = () => {
 
       if (formData.role === 'Farmer') {
         const farmerPayload = {
-          uid: registeredUser.uid,
-          landsize: formData.landsize,
-          income: formData.income,
-          locname: formData.locname
+          uid: registeredUser.uid, landsize: formData.landsize, income: formData.income, locname: formData.locname
         };
         await axios.post('http://localhost:8081/farmer/register', farmerPayload);
-
       } else if (formData.role === 'Vendor') {
         const vendorPayload = {
-          uid: registeredUser.uid,
-          liscenceno: formData.liscenceno,
-          companyname: formData.companyname
+          uid: registeredUser.uid, liscenceno: formData.liscenceno, companyname: formData.companyname
         };
         await axios.post('http://localhost:8082/vendor/register', vendorPayload);
-      }
-      else if (formData.role === 'Government') {
+      } else if (formData.role === 'Government') {
         const govtPayload = {
-          uid: registeredUser.uid,
-          empno: formData.empno,
-          deptname: formData.deptname,
-          designation: formData.designation
+          uid: registeredUser.uid, empno: formData.empno, deptname: formData.deptname, designation: formData.designation
         };
         await axios.post('http://localhost:8083/api/Government/register', govtPayload);
       }
-
 
       setSuccessMessage('Registered successfully!');
       setErrorMessage('');
@@ -131,10 +102,9 @@ const RegisterPage = () => {
         fname: '', lname: '', email: '', username: '', password: '', mobileno: '', role: 'Farmer',
         landsize: '', income: '', locname: '', liscenceno: '', companyname: '', deptname: '', designation: '', empno: ''
       });
-
     } catch (error) {
       console.error('Registration failed:', error);
-      setErrorMessage('Registration failed. Please check backend or network.');
+      setErrorMessage('Registration failed. Check backend or network.');
       setSuccessMessage('');
     }
   };
