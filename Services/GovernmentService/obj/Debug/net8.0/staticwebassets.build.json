@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "DhefkmmNZQz0GiJuii9jqmj08Sfs02Ls+fgX/s+ugOM=",
+  "Source": "GovernmentService",
+  "BasePath": "_content/GovernmentService",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
