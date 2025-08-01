@@ -19,54 +19,74 @@ const LoginPage = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
+  e.preventDefault();
+  setError('');
 
-    try {
-      const response = await axios.post(`${auth_url}/find`, formData);
-      const data = response.data;
+  try {
+    const response = await axios.post(`${auth_url}/find`, formData);
+    const data = response.data;
 
-      console.log("Login response:", data);
+    console.log("Login response:", data);
 
-      const userid = data.uid;
-      const roleName = data.role?.rolename?.toLowerCase();
+    const userid = data.uid;
+    const roleName = data.role?.rolename?.toLowerCase();
 
-      if (!userid || !roleName) {
-        setError('Login failed. Invalid server response.');
+    if (!userid || !roleName) {
+      setError('Login failed. Invalid server response.');
+      return;
+    }
+
+    let gid = null;
+
+    //  If role is government, fetch GID from .NET service
+    if (roleName === 'government') {
+      try {
+        const govResponse = await axios.get(`http://localhost:8083/api/government/get_by_userid/${userid}`);
+        gid = govResponse.data.gid;
+      } catch (gidErr) {
+        console.error("Error fetching GID:", gidErr);
+        setError("Login failed while fetching government ID.");
         return;
       }
-      dispatch(
-        loginSuccess({
-          userid,
-          username: data.username,
-          role: data.role.rolename,
-        })
-      );
-      switch (roleName) {
-        case 'farmer':
-          navigate('/farmer/dashboard');
-          break;
-        case 'vendor':
-          navigate('/vendor/dashboard');
-          break;
-        case 'government':
-          navigate('/government/dashboard');
-          break;
-        case 'admin':
-          navigate('/admin/dashboard');
-          break;
-        default:
-          setError('Invalid role. Access denied.');
-          return;
-      }
-
-      setFormData({ username: '', password: '' });
-
-    } catch (err) {
-      console.error('Login failed:', err);
-      setError('Login failed. Please check your username and password.');
     }
-  };
+
+    // 
+    dispatch(
+      loginSuccess({
+        fname: data.fname,
+        lname: data.lname,
+        userid,
+        username: data.username,
+        role: data.role.rolename,
+        gid: gid, 
+      })
+    );
+
+    switch (roleName) {
+      case 'farmer':
+        navigate('/farmer/dashboard');
+        break;
+      case 'vendor':
+        navigate('/vendor/dashboard');
+        break;
+      case 'government':
+        navigate('/government/dashboard');
+        break;
+      case 'admin':
+        navigate('/admin/dashboard');
+        break;
+      default:
+        setError('Invalid role. Access denied.');
+        return;
+    }
+
+    setFormData({ username: '', password: '' });
+
+  } catch (err) {
+    console.error('Login failed:', err);
+    setError('Login failed. Please check your username and password.');
+  }
+};
 
   return (
     <Container className="mt-4" style={{ maxWidth: '400px' }}>

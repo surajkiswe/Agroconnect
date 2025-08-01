@@ -1,19 +1,36 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { logout } from '../slices/authSlice';
 
 const GovernmentDashboard = () => {
-  const { username, userid, role } = useSelector((state) => state.auth);
+  const { fname, lname } = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/login');
+  };
+
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
+
   return (
     <div style={styles.container}>
-      <h2>Welcome, {username}!</h2>
-      <p>This is your Government Dashboard.</p>
-      <div style={styles.infoBox}>
-        <p><strong>User ID:</strong> {userid}</p>
-        <p><strong>Role:</strong> {role}</p>
+      <div style={styles.header}>
+        <h2>Welcome, {fname} {lname}.</h2>
+      </div>
+
+      <div style={styles.info}>
+        <p>Some Information</p>
+      </div>
+
+      <div style={styles.grid}>
+        <button onClick={() => handleNavigation('/government/add-scheme')} style={styles.card}>Add Scheme</button>
+        <button onClick={() => handleNavigation('/government/view-schemes')} style={styles.card}>View Schemes</button>
       </div>
     </div>
   );
@@ -21,18 +38,38 @@ const GovernmentDashboard = () => {
 
 const styles = {
   container: {
-    marginTop: '50px',
-    textAlign: 'center',
-    fontFamily: 'Arial, sans-serif'
+    padding: '30px',
+    fontFamily: 'Segoe UI, sans-serif',
+    backgroundColor: '#f5f7fb',
+    minHeight: '100vh',
   },
-  infoBox: {
+  header: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderBottom: '1px solid #ccc',
+    paddingBottom: '10px',
+  },
+  info: {
     marginTop: '20px',
-    display: 'inline-block',
-    textAlign: 'left',
-    border: '1px solid #ccc',
+    fontSize: '18px',
+    color: '#555',
+    marginBottom: '30px',
+  },
+  grid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+    gap: '20px',
+  },
+  card: {
     padding: '20px',
+    backgroundColor: '#007bff',
+    color: 'white',
     borderRadius: '10px',
-    backgroundColor: '#f9f9f9'
+    fontSize: '16px',
+    cursor: 'pointer',
+    border: 'none',
+    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
   },
 };
 
