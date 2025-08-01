@@ -1,7 +1,0 @@
-1. create branch- git branch branchname
-2. checkout- git checkout branchname
-3. edit file- 
-4. add - git add filename
-5. commit - git commit -m "message"
-6. git push origin branchname
-7. git merge main
