@@ -1,0 +1,25 @@
+{
+  "schemename": "Organic Farming Subsidy",
+  "description": "Government provides a 40% subsidy on organic fertilizers and seeds.",
+  "startdate": "2025-08-01",
+  "enddate": "2025-12-31",
+  "eligibility": "Farmers owning less than 5 acres of land",
+}
+
+
+{
+  "schemename": "Drip Irrigation Assistance",
+  "description": "Assistance for installation of drip irrigation systems.",
+  "startdate": "2025-07-15",
+  "enddate": "2025-10-31",
+  "eligibility": "All registered farmers",
+}
+
+
+{
+  "schemename": "Kisan Credit Card Scheme",
+  "description": "Provides credit to farmers for crop production and equipment purchase.",
+  "startdate": "2025-01-01",
+  "enddate": "2025-12-31",
+  "eligibility": "All active farmers above 18 years",
+}

@@ -1,0 +1,6 @@
+@GovernmentService_HostAddress = http://localhost:5127
+
+GET {{GovernmentService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
