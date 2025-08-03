@@ -10,9 +10,9 @@ import com.example.demo.entities.FarmerDTO;
 import com.example.demo.entities.Farmer;
 import com.example.demo.services.FarmerService;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/farmer")
-@CrossOrigin(origins = "http://localhost:3000")
 public class FarmerController {
 
     @Autowired
