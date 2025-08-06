@@ -1,0 +1,254 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\DAC\\C#\\Agroconnect\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{2CB160D0-3EF5-490D-AB8C-64784C97C286}|AdminService\\AdminService.csproj|d:\\dac\\c#\\agroconnect\\adminservice\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CB160D0-3EF5-490D-AB8C-64784C97C286}|AdminService\\AdminService.csproj|solutionrelative:adminservice\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CB160D0-3EF5-490D-AB8C-64784C97C286}|AdminService\\AdminService.csproj|d:\\dac\\c#\\agroconnect\\adminservice\\models\\brand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CB160D0-3EF5-490D-AB8C-64784C97C286}|AdminService\\AdminService.csproj|solutionrelative:adminservice\\models\\brand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CB160D0-3EF5-490D-AB8C-64784C97C286}|AdminService\\AdminService.csproj|d:\\dac\\c#\\agroconnect\\adminservice\\models\\addproductdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CB160D0-3EF5-490D-AB8C-64784C97C286}|AdminService\\AdminService.csproj|solutionrelative:adminservice\\models\\addproductdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CB160D0-3EF5-490D-AB8C-64784C97C286}|AdminService\\AdminService.csproj|d:\\dac\\c#\\agroconnect\\adminservice\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CB160D0-3EF5-490D-AB8C-64784C97C286}|AdminService\\AdminService.csproj|solutionrelative:adminservice\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CB160D0-3EF5-490D-AB8C-64784C97C286}|AdminService\\AdminService.csproj|d:\\dac\\c#\\agroconnect\\adminservice\\models\\p09agroconnectdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CB160D0-3EF5-490D-AB8C-64784C97C286}|AdminService\\AdminService.csproj|solutionrelative:adminservice\\models\\p09agroconnectdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CB160D0-3EF5-490D-AB8C-64784C97C286}|AdminService\\AdminService.csproj|d:\\dac\\c#\\agroconnect\\adminservice\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{2CB160D0-3EF5-490D-AB8C-64784C97C286}|AdminService\\AdminService.csproj|solutionrelative:adminservice\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CB160D0-3EF5-490D-AB8C-64784C97C286}|AdminService\\AdminService.csproj|d:\\dac\\c#\\agroconnect\\adminservice\\adminservice.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{2CB160D0-3EF5-490D-AB8C-64784C97C286}|AdminService\\AdminService.csproj|solutionrelative:adminservice\\adminservice.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CB160D0-3EF5-490D-AB8C-64784C97C286}|AdminService\\AdminService.csproj|d:\\dac\\c#\\agroconnect\\adminservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CB160D0-3EF5-490D-AB8C-64784C97C286}|AdminService\\AdminService.csproj|solutionrelative:adminservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CB160D0-3EF5-490D-AB8C-64784C97C286}|AdminService\\AdminService.csproj|d:\\dac\\c#\\agroconnect\\adminservice\\models\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CB160D0-3EF5-490D-AB8C-64784C97C286}|AdminService\\AdminService.csproj|solutionrelative:adminservice\\models\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CB160D0-3EF5-490D-AB8C-64784C97C286}|AdminService\\AdminService.csproj|d:\\dac\\c#\\agroconnect\\adminservice\\models\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CB160D0-3EF5-490D-AB8C-64784C97C286}|AdminService\\AdminService.csproj|solutionrelative:adminservice\\models\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CB160D0-3EF5-490D-AB8C-64784C97C286}|AdminService\\AdminService.csproj|d:\\dac\\c#\\agroconnect\\adminservice\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CB160D0-3EF5-490D-AB8C-64784C97C286}|AdminService\\AdminService.csproj|solutionrelative:adminservice\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CB160D0-3EF5-490D-AB8C-64784C97C286}|AdminService\\AdminService.csproj|d:\\dac\\c#\\agroconnect\\adminservice\\models\\updateproductdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2CB160D0-3EF5-490D-AB8C-64784C97C286}|AdminService\\AdminService.csproj|solutionrelative:adminservice\\models\\updateproductdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B30658E9-55B7-428F-B1E7-CBAAF3D5415C}|GovernmentService\\GovernmentService.csproj|d:\\dac\\c#\\agroconnect\\governmentservice\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B30658E9-55B7-428F-B1E7-CBAAF3D5415C}|GovernmentService\\GovernmentService.csproj|solutionrelative:governmentservice\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2CB160D0-3EF5-490D-AB8C-64784C97C286}|AdminService\\AdminService.csproj|d:\\dac\\c#\\agroconnect\\adminservice\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{2CB160D0-3EF5-490D-AB8C-64784C97C286}|AdminService\\AdminService.csproj|solutionrelative:adminservice\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Category.cs",
+              "DocumentMoniker": "D:\\DAC\\C#\\Agroconnect\\AdminService\\Models\\Category.cs",
+              "RelativeDocumentMoniker": "AdminService\\Models\\Category.cs",
+              "ToolTip": "D:\\DAC\\C#\\Agroconnect\\AdminService\\Models\\Category.cs",
+              "RelativeToolTip": "AdminService\\Models\\Category.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-06T21:14:30.623Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Brand.cs",
+              "DocumentMoniker": "D:\\DAC\\C#\\Agroconnect\\AdminService\\Models\\Brand.cs",
+              "RelativeDocumentMoniker": "AdminService\\Models\\Brand.cs",
+              "ToolTip": "D:\\DAC\\C#\\Agroconnect\\AdminService\\Models\\Brand.cs",
+              "RelativeToolTip": "AdminService\\Models\\Brand.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-06T21:14:27.531Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\DAC\\C#\\Agroconnect\\AdminService\\appsettings.json",
+              "RelativeDocumentMoniker": "AdminService\\appsettings.json",
+              "ToolTip": "D:\\DAC\\C#\\Agroconnect\\AdminService\\appsettings.json",
+              "RelativeToolTip": "AdminService\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-08-06T14:35:21.741Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AddProductDto.cs",
+              "DocumentMoniker": "D:\\DAC\\C#\\Agroconnect\\AdminService\\Models\\AddProductDto.cs",
+              "RelativeDocumentMoniker": "AdminService\\Models\\AddProductDto.cs",
+              "ToolTip": "D:\\DAC\\C#\\Agroconnect\\AdminService\\Models\\AddProductDto.cs",
+              "RelativeToolTip": "AdminService\\Models\\AddProductDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-05T09:17:58.247Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Product.cs",
+              "DocumentMoniker": "D:\\DAC\\C#\\Agroconnect\\GovernmentService\\Models\\Product.cs",
+              "RelativeDocumentMoniker": "GovernmentService\\Models\\Product.cs",
+              "ToolTip": "D:\\DAC\\C#\\Agroconnect\\GovernmentService\\Models\\Product.cs",
+              "RelativeToolTip": "GovernmentService\\Models\\Product.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-04T22:18:18.739Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "D:\\DAC\\C#\\Agroconnect\\AdminService\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "AdminService\\Properties\\launchSettings.json",
+              "ToolTip": "D:\\DAC\\C#\\Agroconnect\\AdminService\\Properties\\launchSettings.json",
+              "RelativeToolTip": "AdminService\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-08-04T21:44:32.989Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\DAC\\C#\\Agroconnect\\AdminService\\Program.cs",
+              "RelativeDocumentMoniker": "AdminService\\Program.cs",
+              "ToolTip": "D:\\DAC\\C#\\Agroconnect\\AdminService\\Program.cs",
+              "RelativeToolTip": "AdminService\\Program.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAC8AAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-04T20:07:48.856Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AdminController.cs",
+              "DocumentMoniker": "D:\\DAC\\C#\\Agroconnect\\AdminService\\Controllers\\AdminController.cs",
+              "RelativeDocumentMoniker": "AdminService\\Controllers\\AdminController.cs",
+              "ToolTip": "D:\\DAC\\C#\\Agroconnect\\AdminService\\Controllers\\AdminController.cs",
+              "RelativeToolTip": "AdminService\\Controllers\\AdminController.cs",
+              "ViewState": "AgIAAGMAAAAAAAAAAAAAAHIAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-04T19:57:14.244Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AdminService.csproj",
+              "DocumentMoniker": "D:\\DAC\\C#\\Agroconnect\\AdminService\\AdminService.csproj",
+              "RelativeDocumentMoniker": "AdminService\\AdminService.csproj",
+              "ToolTip": "D:\\DAC\\C#\\Agroconnect\\AdminService\\AdminService.csproj",
+              "RelativeToolTip": "AdminService\\AdminService.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-08-04T18:35:45.957Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "P09AgroconnectdbContext.cs",
+              "DocumentMoniker": "D:\\DAC\\C#\\Agroconnect\\AdminService\\Models\\P09AgroconnectdbContext.cs",
+              "RelativeDocumentMoniker": "AdminService\\Models\\P09AgroconnectdbContext.cs",
+              "ToolTip": "D:\\DAC\\C#\\Agroconnect\\AdminService\\Models\\P09AgroconnectdbContext.cs",
+              "RelativeToolTip": "AdminService\\Models\\P09AgroconnectdbContext.cs",
+              "ViewState": "AgIAAIAAAAAAAAAAAAAIwMQAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-05T12:14:45.459Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "UpdateProductDTO.cs",
+              "DocumentMoniker": "D:\\DAC\\C#\\Agroconnect\\AdminService\\Models\\UpdateProductDTO.cs",
+              "RelativeDocumentMoniker": "AdminService\\Models\\UpdateProductDTO.cs",
+              "ToolTip": "D:\\DAC\\C#\\Agroconnect\\AdminService\\Models\\UpdateProductDTO.cs",
+              "RelativeToolTip": "AdminService\\Models\\UpdateProductDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-05T11:25:48.865Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "User.cs",
+              "DocumentMoniker": "D:\\DAC\\C#\\Agroconnect\\AdminService\\Models\\User.cs",
+              "RelativeDocumentMoniker": "AdminService\\Models\\User.cs",
+              "ToolTip": "D:\\DAC\\C#\\Agroconnect\\AdminService\\Models\\User.cs",
+              "RelativeToolTip": "AdminService\\Models\\User.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAAwBUAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-05T12:02:48.383Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "UserDto.cs",
+              "DocumentMoniker": "D:\\DAC\\C#\\Agroconnect\\AdminService\\Models\\UserDto.cs",
+              "RelativeDocumentMoniker": "AdminService\\Models\\UserDto.cs",
+              "ToolTip": "D:\\DAC\\C#\\Agroconnect\\AdminService\\Models\\UserDto.cs",
+              "RelativeToolTip": "AdminService\\Models\\UserDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-05T12:04:35.264Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Role.cs",
+              "DocumentMoniker": "D:\\DAC\\C#\\Agroconnect\\AdminService\\Models\\Role.cs",
+              "RelativeDocumentMoniker": "AdminService\\Models\\Role.cs",
+              "ToolTip": "D:\\DAC\\C#\\Agroconnect\\AdminService\\Models\\Role.cs",
+              "RelativeToolTip": "AdminService\\Models\\Role.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-05T12:23:13.723Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

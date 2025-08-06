@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace AdminService.Models;
+
+public partial class Rentalsp
+{
+    public int Prid { get; set; }
+
+    public int Oid { get; set; }
+
+    public decimal? Deposit { get; set; }
+
+    public int Duration { get; set; }
+
+    public virtual Order OidNavigation { get; set; } = null!;
+}

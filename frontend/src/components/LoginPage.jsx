@@ -35,13 +35,55 @@ const LoginPage = () => {
         setError('Login failed. Invalid server response.');
         return;
       }
+
+      let gid = null;
+      let vid = null;
+
+      // ✅ Get vendor ID
+      if (roleName === 'vendor') {
+        try {
+          const vendorResponse = await axios.get(`http://localhost:8082/vendor/getbyuid/${userid}`);
+          const vendorData = vendorResponse.data[0];
+
+          if (!vendorData || !vendorData.vid) throw new Error("VID not found.");
+          vid = vendorData.vid;
+          localStorage.setItem("vid", vid);
+        } catch (vidErr) {
+          console.error("Error fetching VID:", vidErr);
+          setError("Login failed while fetching vendor ID.");
+          return;
+        }
+      }
+
+      // ✅ Get government ID
+      if (roleName === 'government') {
+        try {
+          const govResponse = await axios.get(`http://localhost:8083/api/government/get_by_userid/${userid}`);
+          gid = govResponse.data?.gid;
+
+          if (!gid) throw new Error("GID not found.");
+          localStorage.setItem("gid", gid);
+        } catch (gidErr) {
+          console.error("Error fetching GID:", gidErr);
+          setError("Login failed while fetching government ID.");
+          return;
+        }
+      }
+
+      // ✅ Save in Redux
       dispatch(
         loginSuccess({
+          fname: data.fname,
+          lname: data.lname,
           userid,
           username: data.username,
           role: data.role.rolename,
+          gid,
+          vid,
         })
       );
+
+      // ✅ Navigate based on role
       switch (roleName) {
         case 'farmer':
           navigate('/farmer/dashboard');
