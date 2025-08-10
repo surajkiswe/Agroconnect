@@ -1,7 +1,10 @@
 package com.example.demo.entities;
 
 import jakarta.persistence.*;
+<<<<<<< HEAD
 import java.sql.Date;
+=======
+>>>>>>> 47594a09605d92fa10e4596ce80b20a22f929cb6
 
 @Entity
 @Table(name = "schemes")
@@ -14,6 +17,7 @@ public class Scheme {
     private String schemename;
     private String eligibility;
     private String description;
+<<<<<<< HEAD
     private double income;
     private double landsize;
     private int gid;             // <-- added
@@ -21,6 +25,14 @@ public class Scheme {
     private Date lastdate;
 
     // getters and setters for all fields, including gid:
+=======
+    private String url;
+
+    private java.sql.Date startdate;
+    private java.sql.Date lastdate;
+
+    // Getters and Setters
+>>>>>>> 47594a09605d92fa10e4596ce80b20a22f929cb6
     public int getSchemeid() { return schemeid; }
     public void setSchemeid(int schemeid) { this.schemeid = schemeid; }
 
@@ -33,6 +45,7 @@ public class Scheme {
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
+<<<<<<< HEAD
     public double getIncome() { return income; }
     public void setIncome(double income) { this.income = income; }
 
@@ -48,3 +61,15 @@ public class Scheme {
     public Date getLastdate() { return lastdate; }
     public void setLastdate(Date lastdate) { this.lastdate = lastdate; }
 }
+=======
+    public String getUrl() { return url; }
+    public void setUrl(String url) { this.url = url; }
+
+    public java.sql.Date getStartdate() { return startdate; }
+    public void setStartdate(java.sql.Date startdate) { this.startdate = startdate; }
+
+    public java.sql.Date getLastdate() { return lastdate; }
+    public void setLastdate(java.sql.Date lastdate) { this.lastdate = lastdate; }
+}
+
+>>>>>>> 47594a09605d92fa10e4596ce80b20a22f929cb6

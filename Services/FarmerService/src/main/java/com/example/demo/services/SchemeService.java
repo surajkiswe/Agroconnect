@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+<<<<<<< HEAD
 import com.example.demo.entities.*;
 import com.example.demo.repositories.SchemeRepository;
 import com.example.demo.repositories.FarmerRepository;
@@ -11,6 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
+=======
+import com.example.demo.entities.Scheme;
+import com.example.demo.repositories.SchemeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+>>>>>>> 47594a09605d92fa10e4596ce80b20a22f929cb6
 
 @Service
 public class SchemeService {
@@ -18,6 +27,7 @@ public class SchemeService {
     @Autowired
     private SchemeRepository schemeRepo;
 
+<<<<<<< HEAD
     @Autowired
     private FarmerRepository farmerRepo;
 
@@ -102,4 +112,9 @@ public class SchemeService {
         app.setStatus(1); // applied
         return appliedRepo.save(app);
     }
+=======
+    public List<Scheme> getAllSchemes() {
+        return schemeRepo.findAll();
+    }
+>>>>>>> 47594a09605d92fa10e4596ce80b20a22f929cb6
 }

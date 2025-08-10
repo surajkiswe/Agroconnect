@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+<<<<<<< HEAD
 import com.example.demo.entities.*;
 import com.example.demo.services.SchemeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+=======
+import com.example.demo.entities.Scheme;
+import com.example.demo.services.SchemeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+>>>>>>> 47594a09605d92fa10e4596ce80b20a22f929cb6
 
 @RestController
 @RequestMapping("/scheme")
@@ -21,6 +30,7 @@ public class SchemeController {
     public List<Scheme> getAllSchemes() {
         return schemeService.getAllSchemes();
     }
+<<<<<<< HEAD
 
     // New: list of schemes with eligibility & applied flags for a given farmer (fid)
     @GetMapping("/forFarmer/{fid}")
@@ -45,4 +55,6 @@ public class SchemeController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("message", e.getMessage()));
         }
     }
+=======
+>>>>>>> 47594a09605d92fa10e4596ce80b20a22f929cb6
 }
