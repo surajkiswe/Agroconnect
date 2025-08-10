@@ -6,7 +6,8 @@ const initialState = {
   username: '',
   userid: null,
   role: '',
-  gid: null,       
+  gid: null,  
+  vid: null,     
   isLoggedIn: false
 };
 
@@ -15,13 +16,14 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     loginSuccess: (state, action) => {
-      const { fname, lname, username, userid, role, gid } = action.payload;
+      const { fname, lname, username, userid, role, gid,vid } = action.payload;
       state.fname = fname;
       state.lname = lname;
       state.username = username;
       state.userid = userid;
       state.role = role;
-      state.gid = gid;  
+      state.gid = gid; 
+      state.vid=vid; 
       state.isLoggedIn = true;
     },
     logout: (state) => {
@@ -31,6 +33,7 @@ const authSlice = createSlice({
       state.userid = null;
       state.role = '';
       state.gid = null; 
+      state.vid = null;
       state.isLoggedIn = false;
     }
   }
