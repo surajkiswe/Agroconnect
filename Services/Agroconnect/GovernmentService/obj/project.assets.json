@@ -2389,23 +2389,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\bhush\\.nuget\\packages\\": {},
+    "C:\\Users\\Utkarsh\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\DAC\\C#\\Agroconnect\\GovernmentService\\GovernmentService.csproj",
+      "projectUniqueName": "D:\\Agroconnect CDAC Project\\Backend\\Agroconnect\\Services\\Agroconnect\\GovernmentService\\GovernmentService.csproj",
       "projectName": "GovernmentService",
-      "projectPath": "D:\\DAC\\C#\\Agroconnect\\GovernmentService\\GovernmentService.csproj",
-      "packagesPath": "C:\\Users\\bhush\\.nuget\\packages\\",
-      "outputPath": "D:\\DAC\\C#\\Agroconnect\\GovernmentService\\obj\\",
+      "projectPath": "D:\\Agroconnect CDAC Project\\Backend\\Agroconnect\\Services\\Agroconnect\\GovernmentService\\GovernmentService.csproj",
+      "packagesPath": "C:\\Users\\Utkarsh\\.nuget\\packages\\",
+      "outputPath": "D:\\Agroconnect CDAC Project\\Backend\\Agroconnect\\Services\\Agroconnect\\GovernmentService\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\bhush\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Utkarsh\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],

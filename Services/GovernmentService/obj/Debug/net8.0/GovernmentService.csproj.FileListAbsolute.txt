@@ -227,3 +227,6 @@ C:\Users\bhush\OneDrive\Desktop\AgroConnectBackend\Services\GovernmentService\ob
 C:\Users\bhush\OneDrive\Desktop\AgroConnectBackend\Services\GovernmentService\obj\Debug\net8.0\GovernmentService.pdb
 C:\Users\bhush\OneDrive\Desktop\AgroConnectBackend\Services\GovernmentService\obj\Debug\net8.0\GovernmentService.genruntimeconfig.cache
 C:\Users\bhush\OneDrive\Desktop\AgroConnectBackend\Services\GovernmentService\obj\Debug\net8.0\ref\GovernmentService.dll
+D:\Agroconnect CDAC Project\Backend\Agroconnect\Services\GovernmentService\obj\Debug\net8.0\GovernmentService.dll
+D:\Agroconnect CDAC Project\Backend\Agroconnect\Services\GovernmentService\obj\Debug\net8.0\refint\GovernmentService.dll
+D:\Agroconnect CDAC Project\Backend\Agroconnect\Services\GovernmentService\obj\Debug\net8.0\GovernmentService.pdb
