@@ -9,7 +9,7 @@
     "Parameters": [
       {
         "Name": "scheme",
-        "Type": "Scheme",
+        "Type": "GovernmentService.Models.Scheme",
         "IsRequired": true
       }
     ],
@@ -130,7 +130,7 @@
       },
       {
         "Name": "updatedScheme",
-        "Type": "Scheme",
+        "Type": "GovernmentService.Models.Scheme",
         "IsRequired": true
       }
     ],

@@ -13,7 +13,5 @@ public partial class Rentalsp
 
     public int Duration { get; set; }
 
-    public decimal? Rentperday { get; set; }
-
     public virtual Order OidNavigation { get; set; } = null!;
 }

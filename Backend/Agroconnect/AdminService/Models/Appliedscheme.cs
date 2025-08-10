@@ -13,7 +13,11 @@ public partial class Appliedscheme
 
     public sbyte Status { get; set; }
 
+    public int Schemeid { get; set; }
+
     public virtual Farmer FidNavigation { get; set; } = null!;
 
     public virtual Government GidNavigation { get; set; } = null!;
+
+    public virtual Scheme Scheme { get; set; } = null!;
 }

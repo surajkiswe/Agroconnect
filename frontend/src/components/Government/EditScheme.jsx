@@ -12,6 +12,8 @@ const EditScheme = () => {
     schemename: '',
     description: '',
     eligibility: '',
+    income: '',
+    landsize: '',
     startdate: '',
     lastdate: ''
   });
@@ -23,7 +25,7 @@ const EditScheme = () => {
   useEffect(() => {
     const fetchScheme = async () => {
       try {
-        const res = await axios.get(`http://localhost:8083/api/government/getSchemeById/${id}`);
+        const res = await axios.get(`http://localhost:8080/api/Government/getSchemeById/${id}`);
         setFormData(res.data);
       } catch (err) {
         console.error('Error fetching scheme:', err);
@@ -40,39 +42,44 @@ const EditScheme = () => {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  setError('');
-  setSuccess('');
-  setValidated(true);
+    e.preventDefault();
+    setError('');
+    setSuccess('');
+    setValidated(true);
 
-  const { schemename, description, eligibility, startdate, lastdate } = formData;
+    const { schemename, description, eligibility, income, landsize, startdate, lastdate } = formData;
+    const today = new Date().toISOString().split("T")[0];
 
-  const today = new Date().toISOString().split("T")[0]; // Format: YYYY-MM-DD
-
-  if (
-    schemename.trim().length < 3 ||
-    description.trim() === '' ||
-    eligibility.trim() === '' ||
-    startdate === '' ||
-    lastdate === '' ||
-    new Date(lastdate) < new Date(startdate) ||
-    startdate <= today
-  ) {
-    setError('Please fill all fields correctly. Ensure Start Date is after today and End Date is not before Start Date.');
-    return;
-  }
-
-  try {
-    const res = await axios.put(`http://localhost:8083/api/government/updateScheme/${id}`, formData);
-    if (res.status === 200) {
-      setSuccess('Scheme updated successfully!');
-      setTimeout(() => navigate('/viewschemes'), 1500);
+    if (
+      schemename.trim().length < 3 ||
+      description.trim() === '' ||
+      eligibility.trim() === '' ||
+      !income || isNaN(income) || Number(income) <= 0 ||
+      !landsize || isNaN(landsize) || Number(landsize) <= 0 ||
+      startdate === '' ||
+      lastdate === '' ||
+      new Date(lastdate) < new Date(startdate) ||
+      startdate <= today
+    ) {
+      setError('Please fill all fields correctly. Ensure numeric fields are positive and dates are valid.');
+      return;
     }
-  } catch (err) {
-    console.error('Error updating scheme:', err);
-    setError('Failed to update scheme.');
-  }
-};
+
+    try {
+      const res = await axios.put(`http://localhost:8080/api/Government/updateScheme/${id}`, {
+        ...formData,
+        income: Number(income),
+        landsize: Number(landsize)
+      });
+      if (res.status === 200) {
+        setSuccess('Scheme updated successfully!');
+        setTimeout(() => navigate('/viewschemes'), 1500);
+      }
+    } catch (err) {
+      console.error('Error updating scheme:', err);
+      setError('Failed to update scheme.');
+    }
+  };
 
   return (
     <Container className="mt-4">
@@ -124,6 +131,30 @@ const EditScheme = () => {
               required
             />
             <Form.Control.Feedback type="invalid">Eligibility is required.</Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="income">
+            <Form.Label>Maximum Eligible Income</Form.Label>
+            <Form.Control
+              type="number"
+              name="income"
+              value={formData.income}
+              onChange={handleChange}
+              required
+            />
+            <Form.Control.Feedback type="invalid">Income must be a positive number.</Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="landsize">
+            <Form.Label>Maximum Eligible Land Size</Form.Label>
+            <Form.Control
+              type="number"
+              name="landsize"
+              value={formData.landsize}
+              onChange={handleChange}
+              required
+            />
+            <Form.Control.Feedback type="invalid">Land size must be a positive number.</Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="startdate">

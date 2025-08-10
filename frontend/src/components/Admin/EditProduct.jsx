@@ -20,7 +20,7 @@ const EditProduct = () => {
 
   // Load product details
   useEffect(() => {
-    axios.get(`http://localhost:8084/api/admin/getProductById?prodid=${id}`)
+    axios.get(`http://localhost:8080/api/Admin/getProductById?prodid=${id}`)
       .then((res) => {
         const data = res.data;
         setFormData({
@@ -35,7 +35,7 @@ const EditProduct = () => {
 
   // Load categories
   useEffect(() => {
-    axios.get('http://localhost:8084/api/admin/categories')
+    axios.get('http://localhost:8080/api/Admin/categories')
       .then((res) => {
         if (res.data && Array.isArray(res.data.$values)) {
           setCategories(res.data.$values);
@@ -50,7 +50,7 @@ const EditProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.put('http://localhost:8084/api/admin/updateProduct', formData)
+    axios.put('http://localhost:8080/api/Admin/updateProduct', formData)
       .then(() => {
         setSuccess('Product updated successfully!');
         setTimeout(() => navigate('/admin/allproducts'), 1500); // redirect

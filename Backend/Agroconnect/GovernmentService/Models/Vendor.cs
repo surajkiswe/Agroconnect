@@ -15,6 +15,10 @@ public partial class Vendor
 
     public virtual ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
 
+    public virtual ICollection<Orderdetail> Orderdetails { get; set; } = new List<Orderdetail>();
+
+    public virtual ICollection<Productrental> Productrentals { get; set; } = new List<Productrental>();
+
     public virtual ICollection<Productvendor> Productvendors { get; set; } = new List<Productvendor>();
 
     public virtual User UidNavigation { get; set; } = null!;

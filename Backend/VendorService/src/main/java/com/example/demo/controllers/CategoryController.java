@@ -17,9 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @RestController
-@RequestMapping("category")
+@RequestMapping("/vendor/category")
 
-@CrossOrigin(origins = "http://localhost:3000")
 public class CategoryController {
 	
 	@Autowired

@@ -15,6 +15,8 @@ public partial class Productvendor
 
     public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
 
+    public virtual ICollection<Orderdetail> Orderdetails { get; set; } = new List<Orderdetail>();
+
     public virtual Product Prod { get; set; } = null!;
 
     public virtual Vendor VidNavigation { get; set; } = null!;

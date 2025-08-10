@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-// import { FaEdit, FaTrash } from 'react-icons/fa'; // optional if you want icons
-
 
 const ViewScheme = () => {
   const auth = useSelector((state) => state.auth);
@@ -17,7 +15,7 @@ const ViewScheme = () => {
       localStorage.setItem("gid", gid);
       const fetchSchemes = async () => {
         try {
-          const res = await axios.get(`http://localhost:8083/api/government/getSchemes/${gid}`);
+          const res = await axios.get(`http://localhost:8080/api/Government/getSchemes/${gid}`);
           setSchemes(res.data);
         } catch (err) {
           console.error('Error fetching schemes:', err);
@@ -34,7 +32,7 @@ const ViewScheme = () => {
     if (!window.confirm('Are you sure you want to delete this scheme?')) return;
 
     try {
-      await axios.delete(`http://localhost:8083/api/government/deleteScheme/${schemeid}`);
+      await axios.delete(`http://localhost:8080/api/Government/deleteScheme/${schemeid}`);
       setSchemes(schemes.filter((s) => s.schemeid !== schemeid));
     } catch (error) {
       console.error('Error deleting scheme:', error);
@@ -60,6 +58,8 @@ const ViewScheme = () => {
               <th>Name</th>
               <th>Description</th>
               <th>Eligibility</th>
+              <th>Income</th>
+              <th>Land Size</th>
               <th>Start Date</th>
               <th>End Date</th>
               <th>Actions</th>
@@ -71,6 +71,8 @@ const ViewScheme = () => {
                 <td>{scheme.schemename}</td>
                 <td>{scheme.description}</td>
                 <td>{scheme.eligibility}</td>
+                <td>{scheme.income} RS</td>
+                <td>{scheme.landsize} Acre</td>
                 <td>{new Date(scheme.startdate).toLocaleDateString()}</td>
                 <td>{new Date(scheme.lastdate).toLocaleDateString()}</td>
                 <td>

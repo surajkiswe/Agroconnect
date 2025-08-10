@@ -9,7 +9,7 @@ const AllProducts = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get('http://localhost:8084/api/admin/getAllProducts')
+        axios.get('http://localhost:8080/api/Admin/getAllProducts')
             .then((res) => {
                 const data = res.data;
                 if (Array.isArray(data)) {
@@ -33,7 +33,7 @@ const AllProducts = () => {
 
     const handleDelete = (id) => {
         if (window.confirm('Are you sure you want to delete this product?')) {
-            axios.delete(`http://localhost:8084/api/admin/deleteProduct?prodid=${id}`)
+            axios.delete(`http://localhost:8080/api/Admin/deleteProduct?prodid=${id}`)
                 .then(() => {
                     setProducts(products.filter(prod => prod.prodid !== id));
                 })

@@ -9,7 +9,7 @@ const AllScheme = () => {
   useEffect(() => {
     const fetchAllSchemes = async () => {
       try {
-        const res = await axios.get('http://localhost:8083/api/government/getall');
+        const res = await axios.get('http://localhost:8080/api/Government/getall');
         setSchemes(res.data);
       } catch (error) {
         console.error('Error fetching all schemes:', error);
@@ -32,6 +32,8 @@ const AllScheme = () => {
               <th>Name</th>
               <th>Description</th>
               <th>Eligibility</th>
+              <th>Max Income</th>
+              <th>Max Land Size</th>
               <th>Start Date</th>
               <th>End Date</th>
             </tr>
@@ -42,6 +44,8 @@ const AllScheme = () => {
                 <td>{scheme.schemename}</td>
                 <td>{scheme.description}</td>
                 <td>{scheme.eligibility}</td>
+                <td>{scheme.income} Rs</td>
+                <td>{scheme.landsize} Acre</td>
                 <td>{new Date(scheme.startdate).toLocaleDateString()}</td>
                 <td>{new Date(scheme.lastdate).toLocaleDateString()}</td>
               </tr>

@@ -1,5 +1,7 @@
 package com.example.demo.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,7 @@ public class ProductRentalService {
 	
 	@Autowired
 	VendorService vserv;
+	
 	
 	public ProductRental getonebyid(int id)
 	{
@@ -46,5 +49,12 @@ public class ProductRentalService {
 		pr.setRateperday(rate);
 		return prepo.save(pr);
 	}
+	public List<ProductRental> getbyvid(int vid)
+	{
+		Vendor v= vserv.getvendorbyid(vid);
+		return prepo.findByVid(v);
+	}
+	
+	
 
 }

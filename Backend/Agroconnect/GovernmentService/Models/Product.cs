@@ -1,19 +1,25 @@
-﻿using System.Text.Json.Serialization;
-using GovernmentService.Models;
+﻿using System;
+using System.Collections.Generic;
 
-public class Product
+namespace GovernmentService.Models;
+
+public partial class Product
 {
     public int Prodid { get; set; }
 
-    [JsonPropertyName("Cid")]
     public int Cid { get; set; }
 
-    [JsonPropertyName("Pname")]
     public string Pname { get; set; } = null!;
 
-    [JsonPropertyName("Pdescription")]
     public string? Pdescription { get; set; }
 
+    public int Bid { get; set; }
+
+    public virtual Brand BidNavigation { get; set; } = null!;
+
     public virtual Category CidNavigation { get; set; } = null!;
+
+    public virtual ICollection<Productrental> Productrentals { get; set; } = new List<Productrental>();
+
     public virtual ICollection<Productvendor> Productvendors { get; set; } = new List<Productvendor>();
 }

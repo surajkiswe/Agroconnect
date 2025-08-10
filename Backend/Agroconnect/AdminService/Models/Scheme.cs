@@ -19,5 +19,11 @@ public partial class Scheme
 
     public int Gid { get; set; }
 
+    public double Income { get; set; }
+
+    public double Landsize { get; set; }
+
+    public virtual ICollection<Appliedscheme> Appliedschemes { get; set; } = new List<Appliedscheme>();
+
     public virtual Government GidNavigation { get; set; } = null!;
 }

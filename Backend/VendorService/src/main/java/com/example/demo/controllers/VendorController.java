@@ -11,7 +11,6 @@ import com.example.demo.services.VendorService;
 
 @RestController
 @RequestMapping("/vendor")
-@CrossOrigin(origins = "http://localhost:3000")
 public class VendorController {
 
     @Autowired

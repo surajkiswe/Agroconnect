@@ -1,131 +1,128 @@
-// import React from 'react';
-// import { useSelector, useDispatch } from 'react-redux';
-// import { useNavigate } from 'react-router-dom';
-// // import { logout } from '../slices/authSlice'; // Redux logout action
-
-// const FarmerDashboard = () => {
-//   const { username, userid, role } = useSelector((state) => state.auth);
-//   const dispatch = useDispatch();
-//   const navigate = useNavigate();
-
-//   // const handleLogout = () => {
-//   //   dispatch(logout());         // Clear Redux state
-//   //   navigate('/');              // Redirect to login page
-//   // };
-
-//   return (
-//     <div style={styles.container}>
-//       <h2>Welcome, {username}!</h2>
-//       <p>This is your Farmer Dashboard.</p>
-
-//       <div style={styles.infoBox}>
-//         <p><strong>User ID:</strong> {userid}</p>
-//         <p><strong>Role:</strong> {role}</p>
-//       </div>
-//     </div>
-//   );
-// };
-
-// const styles = {
-//   container: {
-//     marginTop: '50px',
-//     display: 'flex',
-//     flexDirection: 'column',
-//     alignItems: 'center',
-//     fontFamily: 'Arial, sans-serif',
-//     minHeight: '80vh',
-//   },
-//   infoBox: {
-//     marginTop: '20px',
-//     display: 'inline-block',
-//     textAlign: 'left',
-//     border: '1px solid #ccc',
-//     padding: '20px',
-//     borderRadius: '10px',
-//     backgroundColor: '#f9f9f9',
-//     minWidth: '250px',
-//   },
-// };
-
-// export default FarmerDashboard;
-
-
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const FarmerDashboard = () => {
-  const { username, userid, role } = useSelector((state) => state.auth);
-  const [schemes, setSchemes] = useState([]);
+  const { username } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const [hoveredIndex, setHoveredIndex] = useState(null);
 
-  useEffect(() => {
-    axios.get('http://localhost:8081/scheme/all')
-      .then(res => setSchemes(res.data))
-      .catch(err => console.error('Error fetching schemes:', err));
-  }, []);
+  const cards = [
+    {
+      title: 'View Schemes',
+      text: 'Check available government schemes for farmers.',
+      path: '/farmer/viewschemes'
+    },
+    {
+      title: 'Buy & Rent Products',
+      text: 'Browse all farming products by category.',
+      path: '/farmer/viewproducts'
+    },
+    {
+      title: 'View Cart',
+      text: 'View and manage items in your cart.',
+      path: '/farmer/cart'
+    },
+    {
+      title: 'Orders',
+      text: 'Track your past and current orders.',
+      path: '/farmer/orders'
+    }
+  ];
+
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
 
   return (
-    <div style={styles.container}>
-      <h1>Welcome, {username}!</h1>
+    <div style={styles.dashboard}>
+      <h2 style={styles.heading}>Welcome, {username}!</h2>
+      <p style={styles.subtitle}>This is your Farmer Dashboard.</p>
 
-      <h3>Available Schemes</h3>
-      <div style={styles.schemeContainer}>
-        {schemes.length === 0 ? (
-          <p>No schemes available.</p>
-        ) : (
-          schemes.map((scheme) => (
-            <div key={scheme.schemeid} style={styles.schemeCard}>
-              <h4>{scheme.schemename}</h4>
-              <p><strong>Eligibility:</strong> {scheme.eligibility}</p>
-              <p><strong>Valid:</strong> {scheme.startdate} to {scheme.lastdate}</p>
-              <p>{scheme.description}</p>
-              <a href={scheme.url} target="_blank" rel="noopener noreferrer">
-                <button style={styles.applyBtn}>Apply</button>
-              </a>
-            </div>
-          ))
-        )}
+      <div style={styles.cardContainer}>
+        {cards.map((card, index) => (
+          <div
+            key={index}
+            style={hoveredIndex === index ? {...styles.card, ...styles.cardHover} : styles.card}
+            onMouseEnter={() => setHoveredIndex(index)}
+            onMouseLeave={() => setHoveredIndex(null)}
+            onClick={() => handleNavigation(card.path)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => { if (e.key === 'Enter') handleNavigation(card.path); }}
+          >
+            <h3 style={styles.cardTitle}>{card.title}</h3>
+            <p style={styles.cardText}>{card.text}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
 };
 
 const styles = {
-  container: {
-    marginTop: '50px',
-    padding: '20px',
+  dashboard: {
+    marginTop: '30px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
     fontFamily: 'Arial, sans-serif',
     minHeight: '80vh',
-  },
-  infoBox: {
-    marginBottom: '30px',
-    border: '1px solid #ccc',
     padding: '20px',
-    borderRadius: '10px',
-    backgroundColor: '#f9f9f9',
-    maxWidth: '400px',
+    backgroundColor: '#f9f9f9'
   },
-  schemeContainer: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: '15px',
+  heading: {
+    fontSize: '2rem',
+    textAlign: 'center',
+    marginBottom: '5px',
+    color: '#2c662d',
   },
-  schemeCard: {
-    border: '1px solid #ccc',
-    padding: '15px',
-    borderRadius: '10px',
-    width: '300px',
-    backgroundColor: '#e9f7ef',
+  subtitle: {
+    fontSize: '1.1rem',
+    color: '#555',
+    marginBottom: '25px',
+    textAlign: 'center'
   },
-  applyBtn: {
-    marginTop: '10px',
-    padding: '8px 16px',
-    backgroundColor: '#28a745',
-    color: 'white',
-    border: 'none',
-    borderRadius: '6px',
+  cardContainer: {
+    marginTop: '30px',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+    gap: '25px',
+    width: '100%',
+    maxWidth: '1000px',
+    padding: '10px'
+  },
+  card: {
+    padding: '25px',
+    border: '1px solid #ddd',
+    borderRadius: '15px',
+    background: 'linear-gradient(135deg, #ffffff, #f4f4f4)',
+    boxShadow: '0 3px 10px rgba(0, 0, 0, 0.05)',
     cursor: 'pointer',
+    textAlign: 'center',
+    minHeight: '170px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    transition: 'all 0.3s ease',
+    userSelect: 'none',
   },
+  cardHover: {
+    transform: 'translateY(-6px) scale(1.04)',
+    boxShadow: '0 6px 20px rgba(44, 102, 45, 0.3)',
+    background: 'linear-gradient(135deg, #e8f5e9, #d8ffd8)'
+  },
+  cardTitle: {
+    marginBottom: '15px',
+    color: '#2c662d',
+    fontWeight: '600',
+    fontSize: '1.3rem',
+  },
+  cardText: {
+    fontSize: '1rem',
+    color: '#444',
+    lineHeight: '1.3',
+  }
 };
 
 export default FarmerDashboard;

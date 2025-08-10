@@ -38,11 +38,12 @@ const LoginPage = () => {
 
       let gid = null;
       let vid = null;
+      let fid = null;
 
       // ✅ Get vendor ID
       if (roleName === 'vendor') {
         try {
-          const vendorResponse = await axios.get(`http://localhost:8082/vendor/getbyuid/${userid}`);
+          const vendorResponse = await axios.get(`http://localhost:8080/vendor/getbyuid/${userid}`);
           const vendorData = vendorResponse.data[0];
 
           if (!vendorData || !vendorData.vid) throw new Error("VID not found.");
@@ -58,7 +59,7 @@ const LoginPage = () => {
       // ✅ Get government ID
       if (roleName === 'government') {
         try {
-          const govResponse = await axios.get(`http://localhost:8083/api/government/get_by_userid/${userid}`);
+          const govResponse = await axios.get(`http://localhost:8080/api/Government/get_by_userid/${userid}`);
           gid = govResponse.data?.gid;
 
           if (!gid) throw new Error("GID not found.");
@@ -66,6 +67,24 @@ const LoginPage = () => {
         } catch (gidErr) {
           console.error("Error fetching GID:", gidErr);
           setError("Login failed while fetching government ID.");
+          return;
+        }
+      }
+
+      if (roleName === 'farmer') {
+        try {
+          const farmerResponse = await axios.get(`http://localhost:8080/farmer/getbyuid/${userid}`);
+          console.log("Farmer response data:", farmerResponse.data);
+
+          const farmerData = farmerResponse.data[0];
+          if (!farmerData || !farmerData.fid) throw new Error("FID not found.");
+
+          fid = farmerData.fid;
+          console.log(fid);
+          localStorage.setItem("fid", fid);
+        } catch (fidErr) {
+          console.error("Error fetching FID:", fidErr);
+          setError("Login failed while fetching farmer ID.");
           return;
         }
       }
@@ -80,6 +99,7 @@ const LoginPage = () => {
           role: data.role.rolename,
           gid,
           vid,
+          fid
         })
       );
 

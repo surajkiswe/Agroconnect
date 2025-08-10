@@ -1,5 +1,7 @@
-﻿using System.Text.Json.Serialization;
-using GovernmentService.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace GovernmentService.Models;
 
 public partial class Scheme
 {
@@ -15,8 +17,13 @@ public partial class Scheme
 
     public string Description { get; set; } = null!;
 
-    public int Gid { get; set; }  // Foreign key to Government table
+    public int Gid { get; set; }
 
-    [JsonIgnore]
-    public virtual Government? Government { get; set; }
+    public double Income { get; set; }
+
+    public double Landsize { get; set; }
+
+    public virtual ICollection<Appliedscheme> Appliedschemes { get; set; } = new List<Appliedscheme>();
+
+    public virtual Government? GidNavigation { get; set; } = null!;
 }

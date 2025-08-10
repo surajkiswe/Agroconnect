@@ -18,7 +18,7 @@ const EditUser = () => {
   const [success, setSuccess] = useState('');
 
   useEffect(() => {
-    axios.get(`http://localhost:8084/api/admin/getUserById/${uid}`)
+    axios.get(`http://localhost:8080/api/Admin/getUserById/${uid}`)
       .then(res => setFormData(res.data))
       .catch(err => setError('User not found or error loading user.'));
   }, [uid]);

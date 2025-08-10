@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.entities.FarmerDTO;
 import com.example.demo.entities.Farmer;
 import com.example.demo.entities.Location;
+import com.example.demo.entities.Vendor;
 import com.example.demo.repositories.FarmerRepository;
 import com.example.demo.repositories.LocationRepository;
 
@@ -53,5 +54,10 @@ public class FarmerService {
     public Farmer getFarmerByUid(int uid) {
         List<Farmer> list = farmerRepo.findByUid(uid);
         return list.isEmpty() ? null : list.get(0);
+    }
+    
+    public List<Farmer> getbyuid(int id)
+    {
+    	return farmerRepo.findByUid(id);
     }
 }

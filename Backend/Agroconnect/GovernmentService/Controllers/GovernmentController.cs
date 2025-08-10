@@ -79,6 +79,8 @@ namespace GovernmentService.Controllers
                     s.Schemename,
                     s.Description,
                     s.Eligibility,
+                    s.Income,
+                    s.Landsize,
                     s.Startdate,
                     s.Lastdate
                 })
@@ -97,6 +99,8 @@ namespace GovernmentService.Controllers
                     s.Schemename,
                     s.Description,
                     s.Eligibility,
+                    s.Income,
+                    s.Landsize,
                     s.Startdate,
                     s.Lastdate
                 })
@@ -116,6 +120,8 @@ namespace GovernmentService.Controllers
                     s.Schemename,
                     s.Description,
                     s.Eligibility,
+                    s.Income,
+                    s.Landsize,
                     s.Startdate,
                     s.Lastdate,
                     s.Gid

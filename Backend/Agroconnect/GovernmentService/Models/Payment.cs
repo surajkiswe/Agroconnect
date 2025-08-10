@@ -5,13 +5,19 @@ namespace GovernmentService.Models;
 
 public partial class Payment
 {
-    public int Payid { get; set; }
+    public int Paymentid { get; set; }
 
-    public DateOnly? Paydate { get; set; }
+    public int Orderid { get; set; }
 
-    public string? Method { get; set; }
+    public decimal Amount { get; set; }
 
-    public int Oid { get; set; }
+    public string Method { get; set; } = null!;
 
-    public virtual Order OidNavigation { get; set; } = null!;
+    public string? Paymentstatus { get; set; }
+
+    public string? TransactionId { get; set; }
+
+    public DateTime? PaymentDate { get; set; }
+
+    public virtual Ordermaster Order { get; set; } = null!;
 }

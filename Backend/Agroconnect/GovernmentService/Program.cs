@@ -1,5 +1,6 @@
 ﻿using GovernmentService.Models;
 using Microsoft.EntityFrameworkCore;
+using Steeltoe.Discovery.Client;
 
 namespace GovernmentService
 {
@@ -8,6 +9,9 @@ namespace GovernmentService
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddDiscoveryClient(builder.Configuration);
+
 
             // ✅ 1. Add your DbContext with MySQL configuration
             builder.Services.AddDbContext<P09AgroconnectdbContext>(options =>
@@ -18,15 +22,15 @@ namespace GovernmentService
             );
 
             // ✅ 2. Add CORS policy
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("AllowReactApp", policy =>
-                {
-                    policy.WithOrigins("http://localhost:3000") // Your React frontend
-                          .AllowAnyHeader()
-                          .AllowAnyMethod();
-                });
-            });
+            //builder.Services.AddCors(options =>
+            //{
+            //    options.AddPolicy("AllowReactApp", policy =>
+            //    {
+            //        policy.WithOrigins("http://localhost:3000") // Your React frontend
+            //              .AllowAnyHeader()
+            //              .AllowAnyMethod();
+            //    });
+            //});
 
             // Add services to the container
             builder.Services.AddControllers();
@@ -35,6 +39,8 @@ namespace GovernmentService
 
             var app = builder.Build();
 
+            app.UseDiscoveryClient();
+
             // Configure the HTTP request pipeline
             if (app.Environment.IsDevelopment())
             {
@@ -42,7 +48,7 @@ namespace GovernmentService
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             // ✅ 3. Enable CORS here (before authorization)
             app.UseCors("AllowReactApp");

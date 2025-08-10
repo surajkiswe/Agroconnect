@@ -111,4 +111,15 @@ D:\DAC\C#\Agroconnect\GovernmentService\obj\Debug\net8.0\refint\GovernmentServic
 D:\DAC\C#\Agroconnect\GovernmentService\obj\Debug\net8.0\GovernmentService.pdb
 D:\DAC\C#\Agroconnect\GovernmentService\obj\Debug\net8.0\GovernmentService.genruntimeconfig.cache
 D:\DAC\C#\Agroconnect\GovernmentService\obj\Debug\net8.0\ref\GovernmentService.dll
+D:\DAC\C#\Agroconnect\GovernmentService\bin\Debug\net8.0\Steeltoe.Common.dll
+D:\DAC\C#\Agroconnect\GovernmentService\bin\Debug\net8.0\Steeltoe.Common.Abstractions.dll
+D:\DAC\C#\Agroconnect\GovernmentService\bin\Debug\net8.0\Steeltoe.Common.Http.dll
+D:\DAC\C#\Agroconnect\GovernmentService\bin\Debug\net8.0\Steeltoe.Connector.Abstractions.dll
+D:\DAC\C#\Agroconnect\GovernmentService\bin\Debug\net8.0\Steeltoe.Connector.ConnectorBase.dll
+D:\DAC\C#\Agroconnect\GovernmentService\bin\Debug\net8.0\Steeltoe.Discovery.Abstractions.dll
+D:\DAC\C#\Agroconnect\GovernmentService\bin\Debug\net8.0\Steeltoe.Discovery.ClientBase.dll
+D:\DAC\C#\Agroconnect\GovernmentService\bin\Debug\net8.0\Steeltoe.Discovery.ClientCore.dll
+D:\DAC\C#\Agroconnect\GovernmentService\bin\Debug\net8.0\Steeltoe.Discovery.Eureka.dll
+D:\DAC\C#\Agroconnect\GovernmentService\bin\Debug\net8.0\Steeltoe.Extensions.Configuration.Abstractions.dll
+D:\DAC\C#\Agroconnect\GovernmentService\bin\Debug\net8.0\System.Reflection.MetadataLoadContext.dll
 D:\DAC\C#\Agroconnect\GovernmentService\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

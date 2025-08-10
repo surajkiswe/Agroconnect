@@ -1,5 +1,6 @@
 ﻿using AdminService.Models;
 using Microsoft.EntityFrameworkCore;
+using Steeltoe.Discovery.Client;
 using System.Text.Json.Serialization;
 
 namespace AdminService
@@ -10,6 +11,8 @@ namespace AdminService
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddDiscoveryClient(builder.Configuration);
+
             // ✅ 1. Add your DbContext with MySQL configuration
             builder.Services.AddDbContext<P09AgroconnectdbContext>(options =>
                 options.UseMySql(
@@ -19,15 +22,15 @@ namespace AdminService
             );
 
             // ✅ 2. Add CORS policy
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("AllowReactApp", policy =>
-                {
-                    policy.WithOrigins("http://localhost:3000") // Your React frontend
-                          .AllowAnyHeader()
-                          .AllowAnyMethod();
-                });
-            });
+            //builder.Services.AddCors(options =>
+            //{
+            //    options.AddPolicy("AllowReactApp", policy =>
+            //    {
+            //        policy.WithOrigins("http://localhost:3000") // Your React frontend
+            //              .AllowAnyHeader()
+            //              .AllowAnyMethod();
+            //    });
+            //});
 
             // ✅ 3. Add controllers with JSON options to fix circular reference error
             builder.Services.AddControllers().AddJsonOptions(options =>
@@ -41,6 +44,9 @@ namespace AdminService
 
             var app = builder.Build();
 
+            app.UseDiscoveryClient();
+
+
             // Configure the HTTP request pipeline
             if (app.Environment.IsDevelopment())
             {
@@ -48,7 +54,7 @@ namespace AdminService
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
+           // app.UseHttpsRedirection();
 
             // ✅ 4. Enable CORS before authorization
             app.UseCors("AllowReactApp");

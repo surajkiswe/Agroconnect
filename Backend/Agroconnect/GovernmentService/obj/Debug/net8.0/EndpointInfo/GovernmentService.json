@@ -275,6 +275,244 @@
   },
   "components": {
     "schemas": {
+      "Appliedscheme": {
+        "type": "object",
+        "properties": {
+          "aid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "gid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "schemeid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fidNavigation": {
+            "$ref": "#/components/schemas/Farmer"
+          },
+          "gidNavigation": {
+            "$ref": "#/components/schemas/Government"
+          },
+          "scheme": {
+            "$ref": "#/components/schemas/Scheme"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Brand": {
+        "type": "object",
+        "properties": {
+          "bid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "bname": {
+            "type": "string",
+            "nullable": true
+          },
+          "cid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cidNavigation": {
+            "$ref": "#/components/schemas/Category"
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Product"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Cart": {
+        "type": "object",
+        "properties": {
+          "cartid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "durationDays": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "pvid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "prorid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "addedDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "fidNavigation": {
+            "$ref": "#/components/schemas/Farmer"
+          },
+          "pror": {
+            "$ref": "#/components/schemas/Productrental"
+          },
+          "pv": {
+            "$ref": "#/components/schemas/Productvendor"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Category": {
+        "type": "object",
+        "properties": {
+          "cid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cname": {
+            "type": "string",
+            "nullable": true
+          },
+          "ctype": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "brands": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Brand"
+            },
+            "nullable": true
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Product"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Farmer": {
+        "type": "object",
+        "properties": {
+          "fid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "uid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "landsize": {
+            "type": "number",
+            "format": "double"
+          },
+          "income": {
+            "type": "number",
+            "format": "double"
+          },
+          "locid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "appliedschemes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Appliedscheme"
+            },
+            "nullable": true
+          },
+          "carts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Cart"
+            },
+            "nullable": true
+          },
+          "loc": {
+            "$ref": "#/components/schemas/Location"
+          },
+          "ordermasters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Ordermaster"
+            },
+            "nullable": true
+          },
+          "uidNavigation": {
+            "$ref": "#/components/schemas/User"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Feedback": {
+        "type": "object",
+        "properties": {
+          "feedid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "uid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "vid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "uidNavigation": {
+            "$ref": "#/components/schemas/User"
+          },
+          "vidNavigation": {
+            "$ref": "#/components/schemas/Vendor"
+          }
+        },
+        "additionalProperties": false
+      },
       "Government": {
         "type": "object",
         "properties": {
@@ -298,10 +536,347 @@
             "type": "string",
             "nullable": true
           },
+          "appliedschemes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Appliedscheme"
+            },
+            "nullable": true
+          },
           "schemes": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Scheme"
+            },
+            "nullable": true
+          },
+          "uidNavigation": {
+            "$ref": "#/components/schemas/User"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Location": {
+        "type": "object",
+        "properties": {
+          "locid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "locname": {
+            "type": "string",
+            "nullable": true
+          },
+          "farmers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Farmer"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Orderdetail": {
+        "type": "object",
+        "properties": {
+          "orderdetailid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "orderid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pvid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "prorid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "durationdays": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "priceperunit": {
+            "type": "number",
+            "format": "double"
+          },
+          "subtotal": {
+            "type": "number",
+            "format": "double"
+          },
+          "vid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "price": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "order": {
+            "$ref": "#/components/schemas/Ordermaster"
+          },
+          "pror": {
+            "$ref": "#/components/schemas/Productrental"
+          },
+          "pv": {
+            "$ref": "#/components/schemas/Productvendor"
+          },
+          "vidNavigation": {
+            "$ref": "#/components/schemas/Vendor"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Ordermaster": {
+        "type": "object",
+        "properties": {
+          "orderid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "orderdate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "totalamount": {
+            "type": "number",
+            "format": "double"
+          },
+          "paymentstatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "paymentmethod": {
+            "type": "string",
+            "nullable": true
+          },
+          "shippingaddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "fidNavigation": {
+            "$ref": "#/components/schemas/Farmer"
+          },
+          "orderdetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Orderdetail"
+            },
+            "nullable": true
+          },
+          "payments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Payment"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Payment": {
+        "type": "object",
+        "properties": {
+          "paymentid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "orderid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "method": {
+            "type": "string",
+            "nullable": true
+          },
+          "paymentstatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "transactionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "paymentDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "order": {
+            "$ref": "#/components/schemas/Ordermaster"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Product": {
+        "type": "object",
+        "properties": {
+          "prodid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pname": {
+            "type": "string",
+            "nullable": true
+          },
+          "pdescription": {
+            "type": "string",
+            "nullable": true
+          },
+          "bid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "bidNavigation": {
+            "$ref": "#/components/schemas/Brand"
+          },
+          "cidNavigation": {
+            "$ref": "#/components/schemas/Category"
+          },
+          "productrentals": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Productrental"
+            },
+            "nullable": true
+          },
+          "productvendors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Productvendor"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Productrental": {
+        "type": "object",
+        "properties": {
+          "prorid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "prodid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "vid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "rateperday": {
+            "type": "number",
+            "format": "double"
+          },
+          "carts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Cart"
+            },
+            "nullable": true
+          },
+          "orderdetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Orderdetail"
+            },
+            "nullable": true
+          },
+          "prod": {
+            "$ref": "#/components/schemas/Product"
+          },
+          "vidNavigation": {
+            "$ref": "#/components/schemas/Vendor"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Productvendor": {
+        "type": "object",
+        "properties": {
+          "pvid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "prodid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "vid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "price": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "carts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Cart"
+            },
+            "nullable": true
+          },
+          "orderdetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Orderdetail"
+            },
+            "nullable": true
+          },
+          "prod": {
+            "$ref": "#/components/schemas/Product"
+          },
+          "vidNavigation": {
+            "$ref": "#/components/schemas/Vendor"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Role": {
+        "type": "object",
+        "properties": {
+          "rid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "rname": {
+            "type": "string",
+            "nullable": true
+          },
+          "users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/User"
             },
             "nullable": true
           }
@@ -338,6 +913,150 @@
           "gid": {
             "type": "integer",
             "format": "int32"
+          },
+          "income": {
+            "type": "number",
+            "format": "double"
+          },
+          "landsize": {
+            "type": "number",
+            "format": "double"
+          },
+          "appliedschemes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Appliedscheme"
+            },
+            "nullable": true
+          },
+          "gidNavigation": {
+            "$ref": "#/components/schemas/Government"
+          }
+        },
+        "additionalProperties": false
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "uid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "rid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "mobileno": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "fname": {
+            "type": "string",
+            "nullable": true
+          },
+          "lname": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "farmers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Farmer"
+            },
+            "nullable": true
+          },
+          "feedbacks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Feedback"
+            },
+            "nullable": true
+          },
+          "governments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Government"
+            },
+            "nullable": true
+          },
+          "ridNavigation": {
+            "$ref": "#/components/schemas/Role"
+          },
+          "vendors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Vendor"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Vendor": {
+        "type": "object",
+        "properties": {
+          "vid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "uid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "liscenceno": {
+            "type": "string",
+            "nullable": true
+          },
+          "companyname": {
+            "type": "string",
+            "nullable": true
+          },
+          "feedbacks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Feedback"
+            },
+            "nullable": true
+          },
+          "orderdetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Orderdetail"
+            },
+            "nullable": true
+          },
+          "productrentals": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Productrental"
+            },
+            "nullable": true
+          },
+          "productvendors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Productvendor"
+            },
+            "nullable": true
+          },
+          "uidNavigation": {
+            "$ref": "#/components/schemas/User"
           }
         },
         "additionalProperties": false

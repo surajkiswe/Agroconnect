@@ -22,6 +22,11 @@ import EditProduct from './components/Admin/EditProduct';
 import AllUsers from './components/Admin/AllUsers';
 import VendorProductCart from './components/Vendor/VendorProductCart';
 import AddVendorProductsByCategory from './components/Vendor/AddVendorProductsByCategory';
+import ViewSchemes from './components/Farmer/ViewSchemes';
+import ViewProducts from './components/Farmer/ViewProducts';
+import ViewCart from './components/Farmer/ViewCart';
+import PaymentForm from './components/Farmer/PaymentForm';
+import OrdersPage from './components/Farmer/OrdersPage';
 
 function AppContent() {
   const dispatch = useDispatch();
@@ -80,7 +85,11 @@ function AppContent() {
           <Route path="/admin/allusers/" element={<AllUsers />} />
           <Route path="/vendor/VendorProductCart" element={<VendorProductCart/>} />
            <Route path="/vendor/AddVendorProductsByCategory" element={<AddVendorProductsByCategory/>} />
-
+           <Route path='/farmer/viewschemes' element={<ViewSchemes/>}/>
+           <Route path='/farmer/viewproducts' element={<ViewProducts/>}/>
+           <Route path='/farmer/cart' element={<ViewCart/>}/>
+           <Route path="/farmer/payment/:orderId" element={<PaymentForm />} />
+           <Route path="/farmer/orders" element={<OrdersPage />} />
         </Routes>
       </Container>
     </>

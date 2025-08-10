@@ -13,8 +13,7 @@ import com.example.demo.entities.Brands;
 import com.example.demo.services.BrandsService;
 
 @RestController
-@RequestMapping("brands")
-@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/vendor/brands")
 public class BrandsController {
 	@Autowired
 	BrandsService bserv;

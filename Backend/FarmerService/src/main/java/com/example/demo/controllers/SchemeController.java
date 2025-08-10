@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/scheme")
-@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/farmer/scheme")
 public class SchemeController {
 
     @Autowired

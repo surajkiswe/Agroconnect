@@ -6,5 +6,5 @@ import com.example.demo.entities.Farmer;
 import java.util.List;
 
 public interface FarmerRepository extends JpaRepository<Farmer, Integer> {
-    List<Farmer> findByUid(int uid);  // Optional - if needed to fetch farmer by user ID
+    List<Farmer> findByUid(int uid);  
 }

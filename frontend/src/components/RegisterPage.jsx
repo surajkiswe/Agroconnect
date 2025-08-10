@@ -83,17 +83,17 @@ const RegisterPage = () => {
         const farmerPayload = {
           uid: registeredUser.uid, landsize: formData.landsize, income: formData.income, locname: formData.locname
         };
-        await axios.post('http://localhost:8081/farmer/register', farmerPayload);
+        await axios.post('http://localhost:8080/farmer/register', farmerPayload);
       } else if (formData.role === 'Vendor') {
         const vendorPayload = {
           uid: registeredUser.uid, liscenceno: formData.liscenceno, companyname: formData.companyname
         };
-        await axios.post('http://localhost:8082/vendor/register', vendorPayload);
+        await axios.post('http://localhost:8080/vendor/register', vendorPayload);
       } else if (formData.role === 'Government') {
         const govtPayload = {
           uid: registeredUser.uid, empno: formData.empno, deptname: formData.deptname, designation: formData.designation
         };
-        await axios.post('http://localhost:8083/api/Government/register', govtPayload);
+        await axios.post('http://localhost:8080/api/Government/register', govtPayload);
       }
 
       setSuccessMessage('Registered successfully!');

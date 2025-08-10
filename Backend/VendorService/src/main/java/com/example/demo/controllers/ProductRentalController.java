@@ -1,5 +1,7 @@
 package com.example.demo.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,16 +15,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entities.ProductRental;
+
+
 import com.example.demo.repositories.ProductRentalDummy;
 import com.example.demo.services.ProductRentalService;
 
+
 @RestController
-@RequestMapping("productrental")
-@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/vendor/productrental")
 public class ProductRentalController {
 	
     @Autowired
     private ProductRentalService productRentalService;
+    
+    
 
     
     @GetMapping("getone/{id}")
@@ -37,15 +43,23 @@ public class ProductRentalController {
     }
 
     
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("delete/{id}") 
     public void deleteProductRental(@PathVariable int id) {
         productRentalService.delete(id);
     }
 
+    @GetMapping("getbyvid/{vid}")
+	public List<ProductRental> getbyvid(@PathVariable("vid") int vid)
+	{
+		
+		return productRentalService.getbyvid(vid);
+	}
     
-    @PutMapping("update/{id}/{rate}")
-    public ProductRental updateRate(@PathVariable int id, @PathVariable double rate) {
+    @PutMapping("update")
+    public ProductRental updateRate(@RequestParam("prorid") int id, @RequestParam("rateperday") double rate) {
         return productRentalService.updaterate(id, rate);
     }
+    
+  
 
 }

@@ -13,5 +13,7 @@ public partial class Category
 
     public string Description { get; set; } = null!;
 
+    public virtual ICollection<Brand> Brands { get; set; } = new List<Brand>();
+
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 }

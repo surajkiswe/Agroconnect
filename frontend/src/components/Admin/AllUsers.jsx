@@ -9,9 +9,10 @@ const AllUsers = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:8084/api/admin/getAllUsers')
+    axios.get('http://localhost:8080/api/Admin/getAllUsers')
       .then((res) => {
         const data = res.data;
+        console.log(data);
         if (data && Array.isArray(data.$values)) {
           setUsers(data.$values);
         } else {
@@ -27,7 +28,7 @@ const AllUsers = () => {
 
   const handleDelete = (uid) => {
     if (window.confirm('Are you sure you want to delete this user?')) {
-      axios.delete(`http://localhost:8084/api/admin/deleteUser?uid=${uid}`)
+      axios.delete(`http://localhost:8080/api/Admin/deleteUser?uid=${uid}`)
         .then(() => {
           setUsers(users.filter(user => user.uid !== uid));
         })

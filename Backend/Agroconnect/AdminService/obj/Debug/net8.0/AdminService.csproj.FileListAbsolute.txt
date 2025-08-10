@@ -25,6 +25,18 @@ D:\DAC\C#\Agroconnect\AdminService\bin\Debug\net8.0\Microsoft.Extensions.Logging
 D:\DAC\C#\Agroconnect\AdminService\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
 D:\DAC\C#\Agroconnect\AdminService\bin\Debug\net8.0\Microsoft.OpenApi.dll
 D:\DAC\C#\Agroconnect\AdminService\bin\Debug\net8.0\Mono.TextTemplating.dll
+D:\DAC\C#\Agroconnect\AdminService\bin\Debug\net8.0\MySqlConnector.dll
+D:\DAC\C#\Agroconnect\AdminService\bin\Debug\net8.0\Pomelo.EntityFrameworkCore.MySql.dll
+D:\DAC\C#\Agroconnect\AdminService\bin\Debug\net8.0\Steeltoe.Common.dll
+D:\DAC\C#\Agroconnect\AdminService\bin\Debug\net8.0\Steeltoe.Common.Abstractions.dll
+D:\DAC\C#\Agroconnect\AdminService\bin\Debug\net8.0\Steeltoe.Common.Http.dll
+D:\DAC\C#\Agroconnect\AdminService\bin\Debug\net8.0\Steeltoe.Connector.Abstractions.dll
+D:\DAC\C#\Agroconnect\AdminService\bin\Debug\net8.0\Steeltoe.Connector.ConnectorBase.dll
+D:\DAC\C#\Agroconnect\AdminService\bin\Debug\net8.0\Steeltoe.Discovery.Abstractions.dll
+D:\DAC\C#\Agroconnect\AdminService\bin\Debug\net8.0\Steeltoe.Discovery.ClientBase.dll
+D:\DAC\C#\Agroconnect\AdminService\bin\Debug\net8.0\Steeltoe.Discovery.ClientCore.dll
+D:\DAC\C#\Agroconnect\AdminService\bin\Debug\net8.0\Steeltoe.Discovery.Eureka.dll
+D:\DAC\C#\Agroconnect\AdminService\bin\Debug\net8.0\Steeltoe.Extensions.Configuration.Abstractions.dll
 D:\DAC\C#\Agroconnect\AdminService\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
 D:\DAC\C#\Agroconnect\AdminService\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\DAC\C#\Agroconnect\AdminService\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -34,6 +46,7 @@ D:\DAC\C#\Agroconnect\AdminService\bin\Debug\net8.0\System.Composition.Conventio
 D:\DAC\C#\Agroconnect\AdminService\bin\Debug\net8.0\System.Composition.Hosting.dll
 D:\DAC\C#\Agroconnect\AdminService\bin\Debug\net8.0\System.Composition.Runtime.dll
 D:\DAC\C#\Agroconnect\AdminService\bin\Debug\net8.0\System.Composition.TypedParts.dll
+D:\DAC\C#\Agroconnect\AdminService\bin\Debug\net8.0\System.Reflection.MetadataLoadContext.dll
 D:\DAC\C#\Agroconnect\AdminService\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
 D:\DAC\C#\Agroconnect\AdminService\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
 D:\DAC\C#\Agroconnect\AdminService\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
@@ -109,6 +122,3 @@ D:\DAC\C#\Agroconnect\AdminService\obj\Debug\net8.0\refint\AdminService.dll
 D:\DAC\C#\Agroconnect\AdminService\obj\Debug\net8.0\AdminService.pdb
 D:\DAC\C#\Agroconnect\AdminService\obj\Debug\net8.0\AdminService.genruntimeconfig.cache
 D:\DAC\C#\Agroconnect\AdminService\obj\Debug\net8.0\ref\AdminService.dll
-D:\DAC\C#\Agroconnect\AdminService\bin\Debug\net8.0\MySqlConnector.dll
-D:\DAC\C#\Agroconnect\AdminService\bin\Debug\net8.0\Pomelo.EntityFrameworkCore.MySql.dll
-D:\DAC\C#\Agroconnect\AdminService\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Form, Button, Container, Alert, Card } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
@@ -7,11 +7,13 @@ import { useNavigate } from 'react-router-dom';
 function AddScheme() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    schemeName: '',
+    schemename: '',
     description: '',
     eligibility: '',
-    startDate: '',
-    endDate: '',
+    income: '',
+    landsize: '',
+    startdate: '',
+    lastdate: '',
   });
 
   const [success, setSuccess] = useState('');
@@ -20,40 +22,45 @@ function AddScheme() {
 
   const gid = useSelector((state) => state.auth.gid);
 
- const validate = () => {
-  const errors = {};
-  const today = new Date().toISOString().split("T")[0]; // format: YYYY-MM-DD
+  const validate = () => {
+    const errors = {};
+    const today = new Date().toISOString().split("T")[0];
 
-  if (formData.schemeName.trim().length < 3)
-    errors.schemeName = 'Scheme name must be at least 3 characters long.';
+    if (formData.schemename.trim().length < 3)
+      errors.schemename = 'Scheme name must be at least 3 characters long.';
 
-  if (formData.description.trim().length < 10)
-    errors.description = 'Description must be at least 10 characters long.';
+    if (formData.description.trim().length < 10)
+      errors.description = 'Description must be at least 10 characters long.';
 
-  if (formData.eligibility.trim().length < 5)
-    errors.eligibility = 'Eligibility must be at least 5 characters long.';
+    if (formData.eligibility.trim().length < 5)
+      errors.eligibility = 'Eligibility must be at least 5 characters long.';
 
-  if (!formData.startDate) {
-    errors.startDate = 'Start date is required.';
-  } else if (formData.startDate <= today) {
-    errors.startDate = 'Start date must be greater than today.';
-  }
+    if (!formData.income || isNaN(formData.income) || Number(formData.income) <= 0)
+      errors.income = 'Income must be a positive number.';
 
-  if (!formData.endDate) {
-    errors.endDate = 'End date is required.';
-  }
+    if (!formData.landsize || isNaN(formData.landsize) || Number(formData.landsize) <= 0)
+      errors.landsize = 'Land size must be a positive number.';
 
-  if (formData.startDate && formData.endDate && formData.startDate > formData.endDate)
-    errors.date = 'Start date must be before end date.';
+    if (!formData.startdate) {
+      errors.startdate = 'Start date is required.';
+    } else if (formData.startdate < today) {
+      errors.startdate = 'Start date cannot be in the past.';
+    }
 
-  return errors;
-};
+    if (!formData.lastdate) {
+      errors.lastdate = 'End date is required.';
+    }
 
+    if (formData.startdate && formData.lastdate && formData.startdate > formData.lastdate)
+      errors.date = 'Start date must be before end date.';
+
+    return errors;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    setFormErrors({});
+    setFormErrors(prev => ({ ...prev, [name]: undefined }));
   };
 
   const handleSubmit = async (e) => {
@@ -73,19 +80,30 @@ function AddScheme() {
     }
 
     const schemeData = {
-      schemename: formData.schemeName,
+      schemename: formData.schemename,
       description: formData.description,
       eligibility: formData.eligibility,
-      startdate: formData.startDate,
-      lastdate: formData.endDate,
+      income: formData.income,
+      landsize:formData.landsize,
+      startdate: formData.startdate,
+      lastdate: formData.lastdate,
       gid: gid
     };
 
     try {
-      const response = await axios.post('http://localhost:8083/api/government/add_scheme', schemeData);
-      if (response.status === 200) {
+      const response = await axios.post('http://localhost:8080/api/Government/add_scheme', schemeData);
+      if (response.status >= 200 && response.status < 300) {
         setSuccess('Scheme added successfully!');
-        setFormData({ schemeName: '', description: '', eligibility: '', startDate: '', endDate: '' });
+        setFormData({
+          schemename: '',
+          description: '',
+          eligibility: '',
+          income: '',
+          landsize: '',
+          startdate: '',
+          lastdate: ''
+        });
+        setTimeout(() => navigate('/government/dashboard'), 2000);
       }
     } catch (err) {
       console.error("Server error:", err);
@@ -103,16 +121,16 @@ function AddScheme() {
         {formErrors.date && <Alert variant="warning">{formErrors.date}</Alert>}
 
         <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="schemeName">
+          <Form.Group className="mb-3" controlId="schemename">
             <Form.Label>Scheme Name</Form.Label>
             <Form.Control
               type="text"
-              name="schemeName"
-              value={formData.schemeName}
+              name="schemename"
+              value={formData.schemename}
               onChange={handleChange}
-              isInvalid={!!formErrors.schemeName}
+              isInvalid={!!formErrors.schemename}
             />
-            <Form.Control.Feedback type="invalid">{formErrors.schemeName}</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">{formErrors.schemename}</Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="description">
@@ -140,30 +158,52 @@ function AddScheme() {
             <Form.Control.Feedback type="invalid">{formErrors.eligibility}</Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="startDate">
+          <Form.Group className="mb-3" controlId="income">
+            <Form.Label>Maximum Eligible Income</Form.Label>
+            <Form.Control
+              type="number"
+              name="income"
+              value={formData.income}
+              onChange={handleChange}
+              isInvalid={!!formErrors.income}
+            />
+            <Form.Control.Feedback type="invalid">{formErrors.income}</Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="landsize">
+            <Form.Label>Maximum Eligible Land Size</Form.Label>
+            <Form.Control
+              type="number"
+              name="landsize"
+              value={formData.landsize}
+              onChange={handleChange}
+              isInvalid={!!formErrors.landsize}
+            />
+            <Form.Control.Feedback type="invalid">{formErrors.landsize}</Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="startdate">
             <Form.Label>Start Date</Form.Label>
             <Form.Control
               type="date"
-              name="startDate"
-              value={formData.startDate}
+              name="startdate"
+              value={formData.startdate}
               onChange={handleChange}
-              isInvalid={!!formErrors.startDate}
-              
+              isInvalid={!!formErrors.startdate}
             />
-            <Form.Control.Feedback type="invalid">{formErrors.startDate}</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">{formErrors.startdate}</Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="endDate">
+          <Form.Group className="mb-3" controlId="lastdate">
             <Form.Label>End Date</Form.Label>
             <Form.Control
               type="date"
-              name="endDate"
-              value={formData.endDate}
+              name="lastdate"
+              value={formData.lastdate}
               onChange={handleChange}
-              isInvalid={!!formErrors.endDate}
-              
+              isInvalid={!!formErrors.lastdate}
             />
-            <Form.Control.Feedback type="invalid">{formErrors.endDate}</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">{formErrors.lastdate}</Form.Control.Feedback>
           </Form.Group>
 
           <Button type="submit" variant="primary">Submit</Button>

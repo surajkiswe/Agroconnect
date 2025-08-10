@@ -36,7 +36,6 @@ public class ProductService {
 	
 	public Product add(Productcategorydummy pd)
 	{
-		Category c= cserv.getbyid(pd.getCid());
 		Brands b= bserv.Getone(pd.getBid());
 		Product p = new Product(pd.getPname(),pd.getPdescription(),b);
 		return prepo.save(p);
@@ -47,4 +46,5 @@ public class ProductService {
 		return prepo.findByBid(b);
 		
 	}
+	
 }

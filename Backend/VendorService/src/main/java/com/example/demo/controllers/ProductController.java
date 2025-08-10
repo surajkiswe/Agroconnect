@@ -3,7 +3,6 @@ package com.example.demo.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,8 +12,7 @@ import com.example.demo.entities.Product;
 import com.example.demo.services.ProductService;
 
 @RestController
-@RequestMapping("product")
-@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/vendor/product")
 public class ProductController {
 
 	@Autowired
@@ -31,4 +29,10 @@ public class ProductController {
 	{
 		return pserv.getbybid(bid);
 	}
+	
+	@GetMapping("getbyid/{id}")
+    public Product getbyid(@PathVariable int id)
+    {
+    	return pserv.getbyid(id);
+    }
 }

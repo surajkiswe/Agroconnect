@@ -16,7 +16,11 @@ public partial class P09AgroconnectdbContext : DbContext
     {
     }
 
+    public virtual DbSet<Appliedscheme> Appliedschemes { get; set; }
+
     public virtual DbSet<Bankaccount> Bankaccounts { get; set; }
+
+    public virtual DbSet<Brand> Brands { get; set; }
 
     public virtual DbSet<Cart> Carts { get; set; }
 
@@ -30,15 +34,17 @@ public partial class P09AgroconnectdbContext : DbContext
 
     public virtual DbSet<Location> Locations { get; set; }
 
-    public virtual DbSet<Order> Orders { get; set; }
+    public virtual DbSet<Orderdetail> Orderdetails { get; set; }
+
+    public virtual DbSet<Ordermaster> Ordermasters { get; set; }
 
     public virtual DbSet<Payment> Payments { get; set; }
 
     public virtual DbSet<Product> Products { get; set; }
 
-    public virtual DbSet<Productvendor> Productvendors { get; set; }
+    public virtual DbSet<Productrental> Productrentals { get; set; }
 
-    public virtual DbSet<Rentalsp> Rentalsps { get; set; }
+    public virtual DbSet<Productvendor> Productvendors { get; set; }
 
     public virtual DbSet<Role> Roles { get; set; }
 
@@ -50,13 +56,48 @@ public partial class P09AgroconnectdbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySql("server=localhost;port=3306;user=root;password=Suraj@12345;database=p09_agroconnectdb", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.2.0-mysql"));
+        => optionsBuilder.UseMySql("server=localhost;user=root;password=Suraj@12345;database=p09_agroconnectdb", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.2.0-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder
             .UseCollation("utf8mb4_0900_ai_ci")
             .HasCharSet("utf8mb4");
+
+        modelBuilder.Entity<Appliedscheme>(entity =>
+        {
+            entity.HasKey(e => e.Aid).HasName("PRIMARY");
+
+            entity.ToTable("appliedscheme");
+
+            entity.HasIndex(e => e.Schemeid, "fk_scheme_idx");
+
+            entity.HasIndex(e => e.Fid, "fkfidapplied_idx");
+
+            entity.HasIndex(e => e.Gid, "fkgidapplied_idx");
+
+            entity.Property(e => e.Aid)
+                .ValueGeneratedNever()
+                .HasColumnName("aid");
+            entity.Property(e => e.Fid).HasColumnName("fid");
+            entity.Property(e => e.Gid).HasColumnName("gid");
+            entity.Property(e => e.Schemeid).HasColumnName("schemeid");
+            entity.Property(e => e.Status).HasColumnName("status");
+
+            entity.HasOne(d => d.FidNavigation).WithMany(p => p.Appliedschemes)
+                .HasForeignKey(d => d.Fid)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fkfidapplied");
+
+            entity.HasOne(d => d.GidNavigation).WithMany(p => p.Appliedschemes)
+                .HasForeignKey(d => d.Gid)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fkgidapplied");
+
+            entity.HasOne(d => d.Scheme).WithMany(p => p.Appliedschemes)
+                .HasForeignKey(d => d.Schemeid)
+                .HasConstraintName("fk_scheme");
+        });
 
         modelBuilder.Entity<Bankaccount>(entity =>
         {
@@ -83,22 +124,69 @@ public partial class P09AgroconnectdbContext : DbContext
                 .HasColumnName("ifsccode");
         });
 
+        modelBuilder.Entity<Brand>(entity =>
+        {
+            entity.HasKey(e => e.Bid).HasName("PRIMARY");
+
+            entity.ToTable("brands");
+
+            entity.HasIndex(e => e.Bid, "bid_UNIQUE").IsUnique();
+
+            entity.HasIndex(e => e.Bname, "bname_UNIQUE").IsUnique();
+
+            entity.HasIndex(e => e.Cid, "cidfk_brand_idx");
+
+            entity.Property(e => e.Bid).HasColumnName("bid");
+            entity.Property(e => e.Bname)
+                .HasMaxLength(65)
+                .HasColumnName("bname");
+            entity.Property(e => e.Cid).HasColumnName("cid");
+
+            entity.HasOne(d => d.CidNavigation).WithMany(p => p.Brands)
+                .HasForeignKey(d => d.Cid)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("cidfk_brand");
+        });
+
         modelBuilder.Entity<Cart>(entity =>
         {
             entity.HasKey(e => e.Cartid).HasName("PRIMARY");
 
             entity.ToTable("cart");
 
-            entity.HasIndex(e => e.Pvid, "pvid");
+            entity.HasIndex(e => e.Fid, "farmer_id_idx");
+
+            entity.HasIndex(e => e.Prorid, "product_rental_idx");
+
+            entity.HasIndex(e => e.Pvid, "product_vendor_idx");
 
             entity.Property(e => e.Cartid).HasColumnName("cartid");
+            entity.Property(e => e.AddedDate)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("datetime")
+                .HasColumnName("added_date");
+            entity.Property(e => e.DurationDays).HasColumnName("duration_days");
+            entity.Property(e => e.Fid).HasColumnName("fid");
+            entity.Property(e => e.Price).HasColumnName("price");
+            entity.Property(e => e.Prorid).HasColumnName("prorid");
             entity.Property(e => e.Pvid).HasColumnName("pvid");
-            entity.Property(e => e.Quantity).HasColumnName("quantity");
+            entity.Property(e => e.Quantity)
+                .HasDefaultValueSql("'1'")
+                .HasColumnName("quantity");
+
+            entity.HasOne(d => d.FidNavigation).WithMany(p => p.Carts)
+                .HasForeignKey(d => d.Fid)
+                .HasConstraintName("farmer_id");
+
+            entity.HasOne(d => d.Pror).WithMany(p => p.Carts)
+                .HasForeignKey(d => d.Prorid)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("product_rental");
 
             entity.HasOne(d => d.Pv).WithMany(p => p.Carts)
                 .HasForeignKey(d => d.Pvid)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("cart_ibfk_1");
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("product_vendor");
         });
 
         modelBuilder.Entity<Category>(entity =>
@@ -134,20 +222,18 @@ public partial class P09AgroconnectdbContext : DbContext
             entity.HasIndex(e => e.Uid, "uid_idx");
 
             entity.Property(e => e.Fid).HasColumnName("fid");
-            entity.Property(e => e.Income)
-                .HasPrecision(8, 2)
-                .HasColumnName("income");
+            entity.Property(e => e.Income).HasColumnName("income");
             entity.Property(e => e.Landsize).HasColumnName("landsize");
             entity.Property(e => e.Locid).HasColumnName("locid");
             entity.Property(e => e.Uid).HasColumnName("uid");
 
             entity.HasOne(d => d.Loc).WithMany(p => p.Farmers)
                 .HasForeignKey(d => d.Locid)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("flocid");
 
             entity.HasOne(d => d.UidNavigation).WithMany(p => p.Farmers)
                 .HasForeignKey(d => d.Uid)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("fuid");
         });
 
@@ -202,7 +288,6 @@ public partial class P09AgroconnectdbContext : DbContext
 
             entity.HasOne(d => d.UidNavigation).WithMany(p => p.Governments)
                 .HasForeignKey(d => d.Uid)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("guserid");
         });
 
@@ -222,54 +307,127 @@ public partial class P09AgroconnectdbContext : DbContext
                 .HasColumnName("locname");
         });
 
-        modelBuilder.Entity<Order>(entity =>
+        modelBuilder.Entity<Orderdetail>(entity =>
         {
-            entity.HasKey(e => e.Oid).HasName("PRIMARY");
+            entity.HasKey(e => e.Orderdetailid).HasName("PRIMARY");
 
-            entity.ToTable("orders");
+            entity.ToTable("orderdetails");
 
-            entity.HasIndex(e => e.Cartid, "ocartid_idx");
+            entity.HasIndex(e => e.Orderid, "orderid");
 
-            entity.HasIndex(e => e.Fid, "ofid");
+            entity.HasIndex(e => e.Prorid, "product_rental_idx");
 
-            entity.Property(e => e.Oid).HasColumnName("oid");
-            entity.Property(e => e.Amount)
+            entity.HasIndex(e => e.Pvid, "product_vendor_idx");
+
+            entity.HasIndex(e => e.Vid, "vendor_agro_idx");
+
+            entity.Property(e => e.Orderdetailid).HasColumnName("orderdetailid");
+            entity.Property(e => e.Durationdays).HasColumnName("durationdays");
+            entity.Property(e => e.Orderid).HasColumnName("orderid");
+            entity.Property(e => e.Price)
+                .HasPrecision(8, 2)
+                .HasDefaultValueSql("'0.00'")
+                .HasColumnName("price");
+            entity.Property(e => e.Priceperunit)
                 .HasPrecision(10, 2)
-                .HasColumnName("amount");
-            entity.Property(e => e.Cartid).HasColumnName("cartid");
+                .HasColumnName("priceperunit");
+            entity.Property(e => e.Prorid).HasColumnName("prorid");
+            entity.Property(e => e.Pvid).HasColumnName("pvid");
+            entity.Property(e => e.Quantity)
+                .HasDefaultValueSql("'1'")
+                .HasColumnName("quantity");
+            entity.Property(e => e.Subtotal)
+                .HasPrecision(10, 2)
+                .HasColumnName("subtotal");
+            entity.Property(e => e.Vid).HasColumnName("vid");
+
+            entity.HasOne(d => d.Order).WithMany(p => p.Orderdetails)
+                .HasForeignKey(d => d.Orderid)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("orderdetails_ibfk_1");
+
+            entity.HasOne(d => d.Pror).WithMany(p => p.Orderdetails)
+                .HasForeignKey(d => d.Prorid)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("product_rental_agro");
+
+            entity.HasOne(d => d.Pv).WithMany(p => p.Orderdetails)
+                .HasForeignKey(d => d.Pvid)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("product_vendorid_agro");
+
+            entity.HasOne(d => d.VidNavigation).WithMany(p => p.Orderdetails)
+                .HasForeignKey(d => d.Vid)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("vendor_agro");
+        });
+
+        modelBuilder.Entity<Ordermaster>(entity =>
+        {
+            entity.HasKey(e => e.Orderid).HasName("PRIMARY");
+
+            entity.ToTable("ordermaster");
+
+            entity.HasIndex(e => e.Fid, "fid_fk_agro_idx");
+
+            entity.Property(e => e.Orderid).HasColumnName("orderid");
             entity.Property(e => e.Fid).HasColumnName("fid");
-            entity.Property(e => e.Orderdate).HasColumnName("orderdate");
+            entity.Property(e => e.Orderdate)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("datetime")
+                .HasColumnName("orderdate");
+            entity.Property(e => e.Paymentmethod)
+                .HasMaxLength(20)
+                .HasColumnName("paymentmethod");
+            entity.Property(e => e.Paymentstatus)
+                .HasMaxLength(20)
+                .HasDefaultValueSql("'Pending'")
+                .HasColumnName("paymentstatus");
+            entity.Property(e => e.Shippingaddress)
+                .HasColumnType("text")
+                .HasColumnName("shippingaddress");
+            entity.Property(e => e.Totalamount)
+                .HasPrecision(10, 2)
+                .HasColumnName("totalamount");
 
-            entity.HasOne(d => d.Cart).WithMany(p => p.Orders)
-                .HasForeignKey(d => d.Cartid)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("ocartid");
-
-            entity.HasOne(d => d.FidNavigation).WithMany(p => p.Orders)
+            entity.HasOne(d => d.FidNavigation).WithMany(p => p.Ordermasters)
                 .HasForeignKey(d => d.Fid)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("ofid");
+                .HasConstraintName("fid_fk_agro");
         });
 
         modelBuilder.Entity<Payment>(entity =>
         {
-            entity.HasKey(e => e.Payid).HasName("PRIMARY");
+            entity.HasKey(e => e.Paymentid).HasName("PRIMARY");
 
             entity.ToTable("payment");
 
-            entity.HasIndex(e => e.Oid, "poid_idx");
+            entity.HasIndex(e => e.Orderid, "orderid");
 
-            entity.Property(e => e.Payid).HasColumnName("payid");
+            entity.Property(e => e.Paymentid).HasColumnName("paymentid");
+            entity.Property(e => e.Amount)
+                .HasPrecision(10, 2)
+                .HasColumnName("amount");
             entity.Property(e => e.Method)
-                .HasMaxLength(50)
+                .HasMaxLength(20)
+                .HasDefaultValueSql("'UPI'")
                 .HasColumnName("method");
-            entity.Property(e => e.Oid).HasColumnName("oid");
-            entity.Property(e => e.Paydate).HasColumnName("paydate");
+            entity.Property(e => e.Orderid).HasColumnName("orderid");
+            entity.Property(e => e.PaymentDate)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("datetime")
+                .HasColumnName("payment_date");
+            entity.Property(e => e.Paymentstatus)
+                .HasMaxLength(20)
+                .HasDefaultValueSql("'Pending'")
+                .HasColumnName("paymentstatus");
+            entity.Property(e => e.TransactionId)
+                .HasMaxLength(50)
+                .HasColumnName("transaction_id");
 
-            entity.HasOne(d => d.OidNavigation).WithMany(p => p.Payments)
-                .HasForeignKey(d => d.Oid)
+            entity.HasOne(d => d.Order).WithMany(p => p.Payments)
+                .HasForeignKey(d => d.Orderid)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("poid");
+                .HasConstraintName("payment_ibfk_1");
         });
 
         modelBuilder.Entity<Product>(entity =>
@@ -280,7 +438,10 @@ public partial class P09AgroconnectdbContext : DbContext
 
             entity.HasIndex(e => e.Cid, "pcid");
 
+            entity.HasIndex(e => e.Bid, "product_bidfk_idx");
+
             entity.Property(e => e.Prodid).HasColumnName("prodid");
+            entity.Property(e => e.Bid).HasColumnName("bid");
             entity.Property(e => e.Cid).HasColumnName("cid");
             entity.Property(e => e.Pdescription)
                 .HasColumnType("text")
@@ -289,10 +450,41 @@ public partial class P09AgroconnectdbContext : DbContext
                 .HasMaxLength(100)
                 .HasColumnName("pname");
 
+            entity.HasOne(d => d.BidNavigation).WithMany(p => p.Products)
+                .HasForeignKey(d => d.Bid)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("product_bid");
+
             entity.HasOne(d => d.CidNavigation).WithMany(p => p.Products)
                 .HasForeignKey(d => d.Cid)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("product_ibfk_1");
+        });
+
+        modelBuilder.Entity<Productrental>(entity =>
+        {
+            entity.HasKey(e => e.Prorid).HasName("PRIMARY");
+
+            entity.ToTable("productrental");
+
+            entity.HasIndex(e => e.Prodid, "fk_prodid_pr_idx");
+
+            entity.HasIndex(e => e.Vid, "fk_vid_pr_idx");
+
+            entity.Property(e => e.Prorid).HasColumnName("prorid");
+            entity.Property(e => e.Prodid).HasColumnName("prodid");
+            entity.Property(e => e.Rateperday)
+                .HasPrecision(10)
+                .HasColumnName("rateperday");
+            entity.Property(e => e.Vid).HasColumnName("vid");
+
+            entity.HasOne(d => d.Prod).WithMany(p => p.Productrentals)
+                .HasForeignKey(d => d.Prodid)
+                .HasConstraintName("fk_prodid_pr");
+
+            entity.HasOne(d => d.VidNavigation).WithMany(p => p.Productrentals)
+                .HasForeignKey(d => d.Vid)
+                .HasConstraintName("fk_vid_pr");
         });
 
         modelBuilder.Entity<Productvendor>(entity =>
@@ -314,37 +506,11 @@ public partial class P09AgroconnectdbContext : DbContext
 
             entity.HasOne(d => d.Prod).WithMany(p => p.Productvendors)
                 .HasForeignKey(d => d.Prodid)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("pvprodid");
 
             entity.HasOne(d => d.VidNavigation).WithMany(p => p.Productvendors)
                 .HasForeignKey(d => d.Vid)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("pvvid");
-        });
-
-        modelBuilder.Entity<Rentalsp>(entity =>
-        {
-            entity.HasKey(e => e.Prid).HasName("PRIMARY");
-
-            entity.ToTable("rentalsp");
-
-            entity.HasIndex(e => e.Oid, "proid");
-
-            entity.Property(e => e.Prid).HasColumnName("prid");
-            entity.Property(e => e.Deposit)
-                .HasPrecision(10, 2)
-                .HasColumnName("deposit");
-            entity.Property(e => e.Duration).HasColumnName("duration");
-            entity.Property(e => e.Oid).HasColumnName("oid");
-            entity.Property(e => e.Rentperday)
-                .HasPrecision(10, 2)
-                .HasColumnName("rentperday");
-
-            entity.HasOne(d => d.OidNavigation).WithMany(p => p.Rentalsps)
-                .HasForeignKey(d => d.Oid)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("proid");
         });
 
         modelBuilder.Entity<Role>(entity =>
@@ -369,6 +535,8 @@ public partial class P09AgroconnectdbContext : DbContext
 
             entity.ToTable("schemes");
 
+            entity.HasIndex(e => e.Gid, "gov_id_idx");
+
             entity.HasIndex(e => e.Schemeid, "schemeid_UNIQUE").IsUnique();
 
             entity.Property(e => e.Schemeid).HasColumnName("schemeid");
@@ -378,18 +546,17 @@ public partial class P09AgroconnectdbContext : DbContext
             entity.Property(e => e.Eligibility)
                 .HasMaxLength(255)
                 .HasColumnName("eligibility");
+            entity.Property(e => e.Gid).HasColumnName("gid");
+            entity.Property(e => e.Income).HasColumnName("income");
+            entity.Property(e => e.Landsize).HasColumnName("landsize");
             entity.Property(e => e.Lastdate).HasColumnName("lastdate");
             entity.Property(e => e.Schemename)
                 .HasMaxLength(45)
                 .HasColumnName("schemename");
             entity.Property(e => e.Startdate).HasColumnName("startdate");
 
-            entity.Property(e => e.Gid).HasColumnName("gid");
-
-            entity.HasOne(d => d.Government)
-                .WithMany(p => p.Schemes)
+            entity.HasOne(d => d.GidNavigation).WithMany(p => p.Schemes)
                 .HasForeignKey(d => d.Gid)
-                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("fk_scheme_government");
         });
 
@@ -456,7 +623,6 @@ public partial class P09AgroconnectdbContext : DbContext
 
             entity.HasOne(d => d.UidNavigation).WithMany(p => p.Vendors)
                 .HasForeignKey(d => d.Uid)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("vuid");
         });
 
