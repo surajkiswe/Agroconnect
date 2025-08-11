@@ -122,3 +122,4 @@ D:\DAC\C#\Agroconnect\AdminService\obj\Debug\net8.0\refint\AdminService.dll
 D:\DAC\C#\Agroconnect\AdminService\obj\Debug\net8.0\AdminService.pdb
 D:\DAC\C#\Agroconnect\AdminService\obj\Debug\net8.0\AdminService.genruntimeconfig.cache
 D:\DAC\C#\Agroconnect\AdminService\obj\Debug\net8.0\ref\AdminService.dll
+D:\DAC\C#\Agroconnect\AdminService\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

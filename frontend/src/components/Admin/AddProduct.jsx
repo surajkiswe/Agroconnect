@@ -17,7 +17,7 @@ const AddProduct = () => {
 
   // Fetch categories
   useEffect(() => {
-    axios.get('http://localhost:8080/api/Admin/')
+    axios.get('http://localhost:8080/api/Admin/categories')
       .then((response) => {
         const data = response.data;
         if (Array.isArray(data)) {
@@ -38,7 +38,7 @@ const AddProduct = () => {
   // Fetch brands when category changes
   useEffect(() => {
     if (selectedCid) {
-      axios.get(`http://localhost:8080/api/Admin/${selectedCid}`)
+      axios.get(`http://localhost:8080/api/Admin/brands/${selectedCid}`)
         .then((res) => {
           const data = res.data;
           if (Array.isArray(data)) {
@@ -85,7 +85,7 @@ const AddProduct = () => {
     console.log("Submitting product payload:", payload);
 
     try {
-      await axios.post('http://localhost:8080/api/Admin/', payload);
+      await axios.post('http://localhost:8080/api/Admin/addProduct', payload);
       setSuccess('✅ Product added successfully!');
       setProductData({ pname: '', pdescription: '' });
       setSelectedCid('');

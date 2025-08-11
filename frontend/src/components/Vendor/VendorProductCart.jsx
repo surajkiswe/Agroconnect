@@ -123,10 +123,10 @@ const VendorProductCart = () => {
   const handleDelete = async (type, id) => {
     try {
       if (type === "vendor") {
-        await axios.delete(`http://localhost:8082/vendor/productvendor/delete/${id}`);
+        await axios.delete(`http://localhost:8080/vendor/productvendor/delete/${id}`);
         fetchVendorProducts();
       } else {
-        await axios.delete(`http://localhost:8082/vendor/productrental/delete/${id}`);
+        await axios.delete(`http://localhost:8080/vendor/productrental/delete/${id}`);
         fetchRentalProducts();
       }
     } catch (err) {

@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
+
 import com.example.demo.entities.User;
 import com.example.demo.entities.UserLoginDTO;
 import com.example.demo.entities.UserRegistrationDTO;
@@ -34,5 +36,15 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         }
     }
+    
+    @PutMapping("/user/{id}/updateStatus")
+    public ResponseEntity<String> toggleUserStatus(@PathVariable Integer id) {
+        String message = userService.toggleUserStatus(id);
+        if ("User not found".equals(message)) {
+            return ResponseEntity.status(404).body(message);
+        }
+        return ResponseEntity.ok(message);
+    }
+
 
 }

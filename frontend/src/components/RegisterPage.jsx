@@ -93,6 +93,7 @@ const RegisterPage = () => {
         const govtPayload = {
           uid: registeredUser.uid, empno: formData.empno, deptname: formData.deptname, designation: formData.designation
         };
+        console.log(govtPayload);
         await axios.post('http://localhost:8080/api/Government/register', govtPayload);
       }
 

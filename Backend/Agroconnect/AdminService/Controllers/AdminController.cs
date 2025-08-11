@@ -2,6 +2,7 @@
 using AdminService.Models;
 using Microsoft.EntityFrameworkCore;
 using AdminService.Models.Dto;
+using System.Text.Json;
 
 namespace AdminService.Controllers;
 
@@ -179,27 +180,67 @@ public class AdminController : ControllerBase
         return NoContent(); // 204
     }
 
- 
 
-        // ✅ GET all users
-        [HttpGet("getAllUsers")]
-        public async Task<IActionResult> GetAllUsers()
+
+    // ✅ GET all users
+    [HttpGet("getAllUsers")]
+    public async Task<IActionResult> GetAllUsers()
+    {
+        var users = await _context.Users
+            .Include(u => u.RidNavigation)
+            .Select(u => new UserResponseDto
+            {
+                Uid = u.Uid,
+                Username = u.Username,
+                Fname = u.Fname,
+                Lname = u.Lname,
+                Email = u.Email,
+                Role = u.RidNavigation.Rname,
+                Status = (sbyte)(u.Status) // handle null and cast to sbyte
+            })
+            .ToListAsync();
+
+        return Ok(users);
+    }
+
+
+    // ✅ Update user status
+    // ✅ Update user status
+    [HttpPut("updateUserStatus/{uid}")]
+    public IActionResult UpdateUserStatus(int uid, [FromBody] JsonElement body)
+    {
+        try
         {
-            var users = await _context.Users
-                .Include(u => u.RidNavigation) // for role name
-                .Select(u => new UserResponseDto
-                {
-                    Uid = u.Uid,
-                    Username = u.Username,
-                    Fname = u.Fname,
-                    Lname = u.Lname,
-                    Email = u.Email,
-                    Role = u.RidNavigation.Rname
-                })
-                .ToListAsync();
+            // Extract newStatus from JSON body
+            if (!body.TryGetProperty("newStatus", out JsonElement statusElement))
+            {
+                return BadRequest(new { message = "newStatus field is required" });
+            }
 
-            return Ok(users);
+            sbyte newStatus = (sbyte)statusElement.GetInt32();
+
+            var user = _context.Users.FirstOrDefault(u => u.Uid == uid);
+            if (user == null)
+            {
+                return NotFound(new { message = "User not found" });
+            }
+
+            // ✅ Update only the Status field
+            user.Status = newStatus;
+            _context.Entry(user).Property(u => u.Status).IsModified = true;
+
+            _context.SaveChanges();
+
+            return Ok(new { message = "User status updated successfully" });
         }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "Internal server error", error = ex.Message });
+        }
+    }
+
+
+
 
     // ✅ DELETE user by uid
     [HttpDelete("deleteUser")]

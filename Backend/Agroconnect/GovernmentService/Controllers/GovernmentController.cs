@@ -15,21 +15,59 @@ namespace GovernmentService.Controllers
             _context = context;
         }
 
-        // POST: Register new government user
+        //// POST: Register new government user
+        //[HttpPost]
+        //public IActionResult AddGovernment(Government govt)
+        //{
+        //    _context.Governments.Add(govt);
+        //    _context.SaveChanges();
+        //    return Ok(govt);
+        //}
+
+
+
         [HttpPost("register")]
-        public IActionResult RegisterGovernment([FromBody] Government govt)
+        public IActionResult RegisterGovernment([FromBody] Government governmentData)
         {
             try
             {
-                _context.Governments.Add(govt);
+                // 1. Save User first
+                var user = new User
+                {
+                    Username = governmentData.UidNavigation.Username,
+                    Password = governmentData.UidNavigation.Password,
+                    Rid = governmentData.UidNavigation.Rid,
+                    Mobileno = governmentData.UidNavigation.Mobileno,
+                    Email = governmentData.UidNavigation.Email,
+                    Fname = governmentData.UidNavigation.Fname,
+                    Lname = governmentData.UidNavigation.Lname,
+                    Status = 1
+                };
+
+                _context.Users.Add(user);
+                _context.SaveChanges(); // Generates Uid
+
+                // 2. Save Government with the generated Uid
+                var government = new Government
+                {
+                    Uid = user.Uid,
+                    Empno = governmentData.Empno,
+                    Deptname = governmentData.Deptname,
+                    Designation = governmentData.Designation
+                };
+
+                _context.Governments.Add(government);
                 _context.SaveChanges();
-                return Ok("Government user registered successfully.");
+
+                return Ok(new { message = "Government registered successfully" });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "Error: " + ex.Message);
+                return StatusCode(500, ex.Message);
             }
         }
+
+
 
         // POST: Add new scheme
         [HttpPost("add_scheme")]

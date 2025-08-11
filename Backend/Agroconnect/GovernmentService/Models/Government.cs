@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace GovernmentService.Models;
 
@@ -19,5 +20,5 @@ public partial class Government
 
     public virtual ICollection<Scheme> Schemes { get; set; } = new List<Scheme>();
 
-    public virtual User UidNavigation { get; set; } = null!;
+    public virtual User? UidNavigation { get; set; } = null!;
 }

@@ -43,4 +43,15 @@ public class UserService {
         return optionalUser.orElse(null);
     }
 
+    public String toggleUserStatus(Integer id) {
+        Optional<User> userOpt = userRepo.findById(id);
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            user.setStatus(user.getStatus() == 1 ? 0 : 1); // toggle
+            userRepo.save(user);
+            return "User status updated successfully";
+        }
+        return "User not found";
+    }
+    
 }
