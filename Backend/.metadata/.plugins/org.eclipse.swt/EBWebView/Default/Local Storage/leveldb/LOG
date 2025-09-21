@@ -1,2 +1,3 @@
-2025/07/25-10:30:57.014 4ecc Creating DB C:\Users\bhush\OneDrive\Desktop\AgroConnectBackend\Services\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Local Storage\leveldb since it was missing.
-2025/07/25-10:30:57.099 4ecc Reusing MANIFEST C:\Users\bhush\OneDrive\Desktop\AgroConnectBackend\Services\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Local Storage\leveldb/MANIFEST-000001
+2025/09/21-23:24:30.112 3074 Reusing MANIFEST C:\Users\LENOVO\OneDrive\Desktop\CDAC_Main_agro\Agroconnect\Backend\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Local Storage\leveldb/MANIFEST-000001
+2025/09/21-23:24:30.120 3074 Recovering log #3
+2025/09/21-23:24:30.123 3074 Reusing old log C:\Users\LENOVO\OneDrive\Desktop\CDAC_Main_agro\Agroconnect\Backend\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Local Storage\leveldb/000003.log 

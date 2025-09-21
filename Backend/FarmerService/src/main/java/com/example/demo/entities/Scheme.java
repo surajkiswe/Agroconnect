@@ -13,13 +13,35 @@ public class Scheme {
     private String schemename;
     private String eligibility;
     private String description;
+    private double income;
+    private double landsize;
+    private int gid; 
 
     private java.sql.Date startdate;
     private java.sql.Date lastdate;
 
     // Getters and Setters
+    
     public int getSchemeid() { return schemeid; }
-    public void setSchemeid(int schemeid) { this.schemeid = schemeid; }
+    public double getIncome() {
+		return income;
+	}
+	public void setIncome(double income) {
+		this.income = income;
+	}
+	public double getLandsize() {
+		return landsize;
+	}
+	public void setLandsize(double landsize) {
+		this.landsize = landsize;
+	}
+	public int getGid() {
+		return gid;
+	}
+	public void setGid(int gid) {
+		this.gid = gid;
+	}
+	public void setSchemeid(int schemeid) { this.schemeid = schemeid; }
 
     public String getSchemename() { return schemename; }
     public void setSchemename(String schemename) { this.schemename = schemename; }

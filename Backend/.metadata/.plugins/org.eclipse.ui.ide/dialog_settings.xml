@@ -41,6 +41,8 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\Users\LENOVO\OneDrive\Desktop\CDAC_Main_agro\Agroconnect\Backend"/>
+			<item value="C:\Users\LENOVO\Desktop\CDAC_Main_agro\Agroconnect\Backend"/>
 			<item value="C:\Users\bhush\OneDrive\Desktop\AgroConnectBackend\Services\VendorService"/>
 			<item value="C:\Users\bhush\OneDrive\Desktop\AgroConnectBackend\Services\FarmerService"/>
 			<item value="C:\Users\bhush\OneDrive\Desktop\AgroConnectBackend\Services\UserService"/>
